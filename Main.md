@@ -2214,3 +2214,53 @@ In summary, DDL statements are used for managing the structure of the database, 
 - **DROP**: Completely removes a table, including its structure and all data.
 - **DELETE**: Removes specific rows from a table based on conditions while retaining the table structure.
 
+
+# Transaction Control Language (TCL) 💾
+
+## COMMIT:
+
+- **Syntax**: `COMMIT;`
+- **Functionality**: This statement is used to save the transaction to the database.
+- **Usage**: After executing this statement, all the changes made by the transaction become permanent.
+
+## SAVEPOINT:
+
+- **Syntax**: `SAVEPOINT savepoint_name;`
+- **Functionality**: This statement is used to mark a specific point in the transaction. 🚩
+- **Usage**: It allows you to rollback to this point later if needed, without rolling back the entire transaction.
+
+## ROLLBACK:
+
+- **Syntax**: `ROLLBACK TO savepoint_name;`
+- **Functionality**: This statement is used to undo changes up to a specified savepoint. ↩️
+- **Usage**: It rolls back the transaction to the specified savepoint, reverting any changes made after that savepoint.
+- **Example**:
+  ```sql
+  BEGIN TRANSACTION;
+
+  INSERT INTO Prod VALUES (1, 'CHAR', 500, 101);
+  SAVEPOINT R1;
+
+  INSERT INTO Prod VALUES (2, 'PEN', 2000);
+  SAVEPOINT R2;
+
+  ROLLBACK TO R1;
+  ```
+  In this example, the `ROLLBACK TO R1` statement will undo the changes made after the `R1` savepoint, effectively removing the record inserted with the value 'PEN'.
+
+
+# Data Control Language (DCL) 🔓
+
+## GRANT:
+
+- **Syntax**: `GRANT permission ON table_name TO user_name;`
+- **Functionality**: This statement is used to give permissions to another user. 
+- **Example**: `GRANT SELECT ON Employees TO Scott;`
+
+## REVOKE:
+
+- **Syntax**: `REVOKE permission ON table_name FROM user_name;`
+- **Functionality**: This statement is used to revoke permissions from another user. 🔒
+- **Example**: `REVOKE DELETE ON Employees FROM Scott;`
+- **Usage**: The `GRANT` statement gives the user Scott permission to select from the Employees table, while the `REVOKE` statement takes back the permission for Scott to delete from the Employees table.
+
