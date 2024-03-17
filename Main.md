@@ -2066,3 +2066,78 @@ Syntax:
 DESC table_name;
 ```
 
+```markdown
+# SQL DML (Data Manipulation Language)
+
+DML (Data Manipulation Language) is used to insert, update, or delete records from a table. There are three main statements in DML:
+
+## Insert
+
+This statement is used to insert records into a table.
+
+### Syntax:
+
+```sql
+INSERT INTO table_name VALUES (value1, value2, ...);
+```
+
+or
+
+```sql
+INSERT INTO table_name (column1, column2, ...) VALUES (value1, value2, ...);
+```
+
+or
+
+```sql
+INSERT INTO table_name (column1, column2, ...) SELECT column1, column2, ... FROM another_table;
+```
+
+For example:
+
+```sql
+INSERT INTO PROD VALUES (1, 'Beer', 180, 10);
+```
+
+When we only know the column names but not their order, we use the second syntax:
+
+```sql
+INSERT INTO PROD (PName, PID, DISCONT, PRICE) VALUES ('Liptict', 3, 10, 500);
+```
+
+For inserting multiple records into a table, we use the third syntax.
+
+## Update
+
+This statement is used to update records in the table.
+
+### Syntax:
+
+```sql
+UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition;
+```
+
+For example:
+
+```sql
+UPDATE PROD SET PName = 'HoRlett', Price = 250 WHERE PID = 2;
+```
+
+## Delete
+
+This statement is used to delete a particular record from the table.
+
+### Syntax:
+
+```sql
+DELETE FROM table_name WHERE condition;
+```
+
+For example:
+
+```sql
+DELETE FROM Pron WHERE PID IN (3, 4, 5, 6);
+```
+
+DML statements are essential for manipulating data within tables, allowing users to insert, update, or delete records as needed.
+```
