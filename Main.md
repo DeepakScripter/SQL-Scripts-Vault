@@ -2517,3 +2517,169 @@ WHERE DEPTNO IN (
     )
 ); -- Nested subqueries for more complex selection.
 ```
+
+# Attributes 🔑
+
+## Key Attributes:
+
+Key Attributes are used to uniquely identify a record within a table.
+
+## Non-Key Attributes:
+
+All attributes other than Key Attributes are referred to as Non-Key Attributes.
+
+## Primary Key Attributes:
+
+Among the Key Attributes, one is chosen as the Primary Key Attribute, which uniquely identifies records within the table.
+
+## Non-Prime Key Attributes:
+
+All Key Attributes except the Primary Key Attribute are referred to as Non-Prime Key Attributes.
+
+## Composite Key Attributes:
+
+A Composite Key is a combination of two or more attributes, which together uniquely identify records within the table.
+
+## Super Key Attributes:
+
+A Super Key is a set of attributes that uniquely identifies a record within a table.
+
+## Foreign Key Attributes:
+
+Foreign Key Attributes are attributes in one entity that reference the Primary Key of another entity, establishing a relationship between them.
+
+## Properties of Attributes:
+
+- Name
+- Age
+- Height
+- Weight
+- Date of Birth (DoB)
+- Antibuse Level
+- Gender
+- Address
+- Profession
+- Aadhar Number
+- PAN (Permanent Account Number)
+- Voter ID
+- Passport
+- Contact Number
+- Email ID
+- Bank Account Number
+
+### Primary Key Attributes:
+
+- Aadhar Number
+- PAN
+- Voter ID
+
+### Non-Primary Key Attributes:
+
+- Name
+- Age
+- Height
+- Weight
+- Date of Birth (DoB)
+- Antibuse Level
+- Gender
+- Address
+- Profession
+- Passport
+- Contact Number
+- Email ID
+- Bank Account Number
+
+### Composite Key Attributes:
+
+A Composite Key is formed by combining multiple attributes to uniquely identify a record. For example, a combination of Name and Date of Birth might form a Composite Key.
+
+### Group of Key Attributes forming a Super Key:
+
+All Key Attributes, such as Aadhar Number, PAN, and Voter ID, form the Super Key Attributes.
+
+# Functional Dependency 🔄
+
+In a relation 'R' with two attributes 'X' and 'Y', if attribute 'X' determines attribute 'Y', then there exists a functional dependency where 'Y' is dependent on 'X'.
+
+## Example:
+
+Consider a relation with attributes SID, Name, Branch, and Percentage. If the attribute Name is determined by SID, then there exists a functional dependency: SID -> Name.
+
+## Types of Functional Dependency:
+
+### Total Functional Dependency:
+
+If all attributes in a relation are determined by a single attribute which is a key attribute, then there exists total functional dependency. In total functional dependency, there are no anomalies or redundancies.
+
+### Partial Functional Dependency:
+
+For a partial functional dependency to exist, there must be composite key attributes. In partial functional dependency, there is redundancy and anomalies.
+
+#### Example:
+
+Consider a relation 'R' with attributes A, B, C, and D, where A and B are composite key attributes. If A determines C separately, then there exists partial functional dependency: A -> C.
+
+### Transitive Functional Dependency:
+
+If an attribute is determined by a non-key attribute, which in turn is determined by a key attribute, then there exists a transitive functional dependency. In transitive functional dependency, there is redundancy and anomalies.
+
+#### Example:
+
+Consider a relation with attributes A, B, C, and D, where A is a key attribute. If B determines C, and C determines D, then there exists a transitive functional dependency: B -> C -> D.
+
+
+
+# Normalization 🔍
+
+Normalization is the process of organizing a database into smaller, manageable tables to reduce redundancy and eliminate anomalies by identifying their functional dependencies.
+
+## Normal Form:
+
+A table without redundancy and anomalies is said to be in normal form.
+
+## Levels of Normal Form:
+
+### First Normal Form (1NF):
+A table is in first normal form if it satisfies the following conditions:
+- It should not contain multi-valued data.
+- Each table entry should not have duplicate or repeated values.
+
+#### Example:
+
+```diff
+SID | Name   | Skills
+----|--------|-------
+1   | Stella | Python, Java
+2   | David  | Python, Java
+3   | Lara   | Java
+```
+
+### Second Normal Form (2NF):
+A table is in second normal form if it is already in 1NF and does not have partial functional dependencies.
+If there are partial functional dependencies, attributes responsible for them should be removed from the table.
+
+#### Example:
+
+```css
+StdID | Name   | SubjectID | Subject | Teacher
+------|--------|-----------|---------|--------
+910   | Stella | A         | Python  | Mr. A
+910   | Stella | B         | Java    | Mr. B
+```
+
+### Third Normal Form (3NF):
+A table is in third normal form if it is already in 2NF and does not have transitive functional dependencies.
+If there are transitive functional dependencies, the attributes causing them should be removed from the table.
+
+#### Example:
+
+```yaml
+EmpNo | EmpName | Salary | DepartmentID | Pincode | State
+------|---------|--------|--------------|---------|------
+1     | Alice   | 5000   | HR           | 12345   | CA
+2     | Bob     | 6000   | IT           | 23456   | NY
+```
+
+### Boyce-Codd Normal Form (BCNF):
+It's an updated version of 3NF, also known as 3.5 NF.
+```
