@@ -2378,3 +2378,142 @@ SELECT * FROM (SELECT ROWID SLNO, EMP.* FROM EMP) WHERE SLNO = '3';
 -- Using ROWID instead of ROWNUM and selecting multiple ROWIDs
 SELECT * FROM (SELECT ROWID SLNO, EMP.* FROM EMP) WHERE SLNO IN (1,2,3,4,5,6,7,8,9,10);
 ```
+
+# ORDER BY Clause
+
+The ORDER BY clause is used to sort the result set in ascending or descending order based on one or more columns. Here's an explanation of how ORDER BY works:
+
+- The ORDER BY clause is placed after the SELECT statement and before the optional LIMIT or OFFSET clauses.
+- By default, ORDER BY sorts the result set in ascending order.
+- You can specify the column name or expression along with the ASC (ascending) or DESC (descending) keyword in the ORDER BY clause.
+- If ASC or DESC is not specified, ASC (ascending order) is assumed.
+- The ORDER BY clause executes after the SELECT clause.
+- It is typically used after the WHERE clause, GROUP BY clause (if used), and before the LIMIT or OFFSET clauses.
+- The execution order of SQL statements is as follows: FROM, WHERE, GROUP BY, HAVING, SELECT, ORDER BY.
+- We can pass column names or expressions as arguments in the ORDER BY clause.
+
+## Syntax:
+
+```sql
+SELECT column1, column2
+FROM table_name
+WHERE condition
+ORDER BY column1 ASC, column2 DESC;
+```
+
+   OR 
+
+```sql
+SELECT column1, column2 + column3 AS expression_result
+FROM table_name
+ORDER BY column1 DESC, expression_result ASC;
+```
+
+## Examples:
+
+### Sorting by Employee Name in Ascending Order
+```sql
+SELECT ENAME FROM EMP ORDER BY ENAME ASC; -- Order the employee names in ascending order.
+```
+
+### Sorting by Employee Name in Descending Order
+```sql
+SELECT ENAME FROM EMP ORDER BY ENAME DESC; -- Order the employee names in descending order.
+```
+
+### Selecting Top 3 Rows in Descending Order
+```sql
+SELECT * FROM (SELECT ROWNUM, EMP.* FROM EMP ORDER BY ROWNUM DESC) WHERE ROWNUM < 4; -- Select the top 3 rows in descending order.
+```
+
+### Finding Maximum Salary
+```sql
+SELECT MAX(SAL) FROM EMP; -- Find the maximum salary.
+```
+
+### Finding Maximum Salary Less Than Maximum Salary
+```sql
+SELECT MAX(SAL) FROM EMP WHERE SAL < (SELECT MAX(SAL) FROM EMP); -- Find the maximum salary less than the overall maximum salary.
+```
+
+### Finding Maximum Salary Less Than Second Maximum Salary
+```sql
+SELECT MAX(SAL) FROM EMP WHERE SAL < (SELECT MAX(SAL) FROM EMP WHERE SAL < (SELECT MAX(SAL) FROM EMP)); -- Find the maximum salary less than the second maximum salary.
+```
+
+### Finding nth Maximum and Minimum Salary using ROWNUM Concept
+```sql
+SELECT SAL FROM (SELECT ROWNUM SLNO, SAL FROM (SELECT DISTINCT SAL FROM EMP ORDER BY SAL ASC)) WHERE SLNO = n; -- Find the nth maximum and minimum salary using the ROWNUM concept.
+SELECT SAL FROM (SELECT ROWNUM SLNO, SAL FROM (SELECT DISTINCT SAL FROM EMP ORDER BY SAL DESC)) WHERE SLNO = 12; -- Find the nth maximum and minimum salary using the ROWNUM concept.
+```
+
+### Selecting Specific Rows using ROWNUM Concept
+```sql
+SELECT SAL FROM (SELECT ROWNUM SLNO, SAL FROM (SELECT DISTINCT SAL FROM EMP ORDER BY SAL DESC)) WHERE SLNO IN (1, 2, 3); -- Select specific rows using the ROWNUM concept.
+SELECT SAL FROM (SELECT ROWNUM SLNO, SAL FROM (SELECT DISTINCT SAL FROM EMP ORDER BY SAL DESC)) WHERE SLNO IN (5, 3); -- Select specific rows using the ROWNUM concept.
+```
+
+### Selecting Salary Based on nth Record
+```sql
+SELECT *
+FROM EMP
+WHERE SAL IN (
+    SELECT SAL
+    FROM (
+        SELECT ROWNUM SLNO, SAL
+        FROM (
+            SELECT DISTINCT SAL
+            FROM EMP
+            ORDER BY SAL DESC
+        )
+    )
+    WHERE SLNO = 10
+); -- Select the salary based on the nth record.
+```
+
+### Nested Subqueries for Complex Selection
+```sql
+SELECT DNAME
+FROM DEPT
+WHERE DEPTNO IN (
+    SELECT DEPTNO
+    FROM (
+        SELECT DEPTNO
+        FROM EMP
+        WHERE SAL IN (
+            SELECT SAL
+            FROM (
+                SELECT ROWNUM DINO, SAL
+                FROM (
+                    SELECT DISTINCT SAL
+                    FROM EMP
+                    ORDER BY SAL ASC
+                )
+            )
+            WHERE DINO = 7
+        )
+    )
+); -- Nested subqueries for complex selection.
+```
+
+### Nested Subqueries for More Complex Selection
+```sql
+SELECT LOC
+FROM DEPT
+WHERE DEPTNO IN (
+    SELECT DEPTNO
+    FROM EMP
+    WHERE COMM IN (
+        SELECT SAL
+        FROM (
+            SELECT ROWNUM SINO, SAL
+            FROM (
+                SELECT DISTINCT SAL
+                FROM EMP
+                ORDER BY SAL DESC
+            )
+        )
+        WHERE SINO = 5
+    )
+); -- Nested subqueries for more complex selection.
+```
