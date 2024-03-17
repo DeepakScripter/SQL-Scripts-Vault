@@ -1157,7 +1157,7 @@ FROM table1, table2;
 
 -- Performing a Cartesian Join between EMP and DEPT tables
 select * from emp cross join dept;
-```
+
 
 
 -- Performing a Cartesian Join between EMP and DEPT tables (Alternative syntax)
@@ -1338,6 +1338,274 @@ In these queries:
 - Conditions are applied to filter the results based on the specific requirements.
 
 
+# Inner Join and Self Join Question 🔍 
+When using INNER JOIN to join N number of tables, we need N minus one join conditions to connect each table together. There's no strict limit on the number of tables we can join using INNER JOIN; however, joining a large number of tables can affect performance and query readability.
+
+## Example Queries:
+
+
+-- Query 1: Select employee names, their managers' names, and department names.
+SELECT E1.ENAME, E2.ENAME, D1.DNAME, D2.DNAME 
+FROM EMP E1, EMP E2, DEPT D1, DEPT D2 
+WHERE E1.MGR = E2.EMPNO 
+AND E1.DEPTNO = D1.DEPTNO 
+AND E2.DEPTNO = D2.DEPTNO;
+
+-- Query 2: Select employee names, their managers' names, and department names where employee salary is greater than 2000 and department number is 20.
+SELECT E1.ENAME, E2.ENAME, D1.DNAME, D2.DNAME 
+FROM EMP E1, EMP E2, DEPT D1, DEPT D2 
+WHERE E1.MGR = E2.EMPNO 
+AND E1.DEPTNO = D1.DEPTNO 
+AND E2.DEPTNO = D2.DEPTNO 
+AND E1.SAL > 2000 
+AND E2.DEPTNO = 20;
+
+-- Query 3: Select employee names, their department locations, manager names, and manager department locations for employees in departments 10 or 30, whose salary is greater than that of employee 'FROD', and department location is either 'NEWYORK' or 'CHICAGO'.
+SELECT E1.ENAME, D1.LOC, E2.ENAME, D2.LOC 
+FROM EMP E1, EMP E2, DEPT D1, DEPT D2 
+WHERE E1.MGR = E2.EMPNO 
+AND E1.DEPTNO = D1.DEPTNO 
+AND E2.DEPTNO = D2.DEPTNO 
+AND E1.DEPTNO IN (10, 30) 
+AND E2.SAL > (SELECT SAL FROM EMP WHERE ENAME = 'FROD') 
+AND D1.LOC IN ('NEWYORK', 'CHICAGO');
+
+-- Query 4: Select employee names, their manager names, and department locations for employees hired before September 28, 1981, in departments 10 or 40, whose salary is greater than that of employee 'SMITH'.
+SELECT E1.ENAME, E2.ENAME, D1.LOC, D2.LOC 
+FROM EMP E1, EMP E2, DEPT D1, DEPT D2 
+WHERE E1.MGR = E2.EMPNO 
+AND E1.HIREDATE < '1981-09-28' 
+AND (E2.DEPTNO = 10 OR E2.DEPTNO = 40) 
+AND E2.SAL > (SELECT SAL FROM EMP WHERE ENAME = 'SMITH');
+
+
+
+# Natural Join 🔗 
+In a natural join, there's no need to write any join condition explicitly. If the tables contain similar columns, the natural join will output the result similar to an inner join. However, if the tables don't have similar columns, the natural join will behave like a Cartesian join.
+
+We use a natural join when we want to join tables based on the columns that are present in their table structures. It simplifies the join process by automatically matching columns with the same names from the tables being joined.
+
+## Example Queries:
+
+```sql
+-- ANSI SQL Syntax:
+-- Query 1: Perform a natural join between table1 and table2.
+SELECT *
+FROM table1
+NATURAL JOIN table2;
+
+-- Oracle SQL Syntax:
+-- Query 2: Perform a natural join between EMP and DEPT tables.
+SELECT *
+FROM EMP
+NATURAL JOIN DEPT;
+
+# Single-Row Functions
+
+
+Single-row functions in SQL are used to perform operations on individual rows and return a single result for each row processed. These functions can manipulate character strings, dates, numbers, and other data types. Here are some commonly used single-row functions:
+
+1. `DUAL`: A special one-row table in Oracle used for testing SQL expressions or functions without accessing any data.
+
+2. `UPPER`: Converts a character string to uppercase.
+
+3. `LOWER`: Converts a character string to lowercase.
+
+4. `INITCAP`: Capitalizes the first letter of each word in a string.
+
+5. `LENGTH`: Returns the length of a string in characters.
+
+6. `REVERSE`: Reverses the characters in a string.
+
+7. `SUBSTR`: Returns a substring from a string.
+
+8. `MOD`: Returns the remainder of a division operation.
+
+9. `TO_CHAR`: Converts a datetime or number value to a character string.
+
+10. `SYSDATE`: Returns the current date and time from the database server.
+
+11. `TO_DATE`: Converts a character string to a date.
+
+12. `NVL`: Returns a specified value if a given expression is null; otherwise, returns the expression itself.
+
+These functions play a crucial role in SQL queries, enabling data manipulation, formatting, and calculation operations on database records.
+
+
+# Numeric Functions:
+
+1. **ABS**: Returns the absolute value of a number.
+   
+   ```
+   SELECT ABS(-10) AS absolute_value FROM DUAL;
+   -- Output: absolute_value
+   --         10
+   ```
+
+2. **POWER**: Raises a number to a specified power.
+   
+   ```
+   SELECT POWER(2, 3) AS result FROM DUAL;
+   -- Output: result
+   --         8
+   ```
+
+# Character Functions:
+
+3. **UPPER**: Converts a string to uppercase.
+   
+   ```sql
+   SELECT UPPER('hello') AS uppercase_string FROM DUAL;
+   -- Output: uppercase_string
+   --         HELLO
+   ```
+
+4. **INITCAP**: Capitalizes the first letter of each word in a string.
+   
+   ```
+   SELECT INITCAP('hello world') AS initcap_string FROM DUAL;
+   -- Output: initcap_string
+   --         Hello World
+   ```
+
+# Date Functions:
+
+5. **SYSDATE**: Returns the current date and time.
+   
+   ```
+   SELECT SYSDATE FROM DUAL;
+   -- Output: SYSDATE
+   --         (current date and time)
+   ```
+
+6. **MONTHS_BETWEEN**: Returns the number of months between two dates.
+   
+   ```
+   SELECT MONTHS_BETWEEN('01-JAN-2022', '01-JAN-2020') AS months_diff FROM DUAL;
+   -- Output: months_diff
+   --         24
+   ```
+
+# Conversion Functions:
+
+7. **TO_CHAR**: Converts a datetime or number to a character string.
+   
+   ```
+   SELECT TO_CHAR(SYSDATE, 'DD-MON-YYYY HH24:MI:SS') AS formatted_date FROM DUAL;
+   -- Output: formatted_date
+   --         (current date and time in the specified format)
+   ```
+
+8. **TO_NUMBER**: Converts a character string to a number.
+   
+   ```
+   SELECT TO_NUMBER('123.45') AS num_value FROM DUAL;
+   -- Output: num_value
+   --         123.45
+   ```
+
+   
+# Datatypes
+
+Datatypes are used to determine what type of data or kind of data will be stored in a particular memory location.
+
+## Datatypes in SQL:
+
+1. **CHAR:**  
+   - Stores fixed-length character data.
+   - Examples: 'A', 'B', 'C'.
+
+2. **VARCHAR/VARCHAR2:**  
+   - Stores variable-length character data.
+   - Examples: 'OpenAI', 'SQL'.
+
+3. **NUMBER:**  
+   - Stores numeric data.
+   - Examples: 123, 45.67.
+
+4. **DATE:**  
+   - Stores date and time data.
+   - Examples: '2022-03-15', '10:30:00'.
+
+5. **LARGE OBJECT:**
+   - Generic term for data types capable of storing large amounts of data.
+   - Includes CLOB, BLOB.
+
+   - **Character Large Object (CLOB):**
+     - Stores large blocks of character data.
+     - Examples: Long text documents, articles.
+
+   - **Binary Large Object (BLOB):**
+     - Stores large blocks of binary data.
+     - Examples: Images, multimedia files.
+
+### CHAR Datatype:
+
+- CHAR datatype can accept characters such as:
+  - 'A' to 'Z'
+  - '0' to '9'
+  - Special Characters ('!', '*', '^', '-', '_')
+  - ASCII (American Standard Code for Information Interchange):
+    - A - 65
+    - Z - 90
+    - a - 97
+    - z - 122
+
+#### SYNTAX:
+
+
+Char (SIZE)
+
+- SIZE: It is used to determine the number of characters that can be stored.
+- The maximum size that we can store is 2000.
+- It is a type of "fixed-length memory allocation". The major drawback of CHAR is its suboptimal usage of memory.
+
+# Varchar and Varchar2 in SQL
+
+## Varchar
+
+- Varchar datatype can accept characters such as special characters (#, *, $, ----).
+- Syntax: `Varchar (SIZE)`
+- Size: It is used to determine the number of characters that we can store.
+- Whenever we mention the Varchar datatype, we have to mention the size for it.
+- The maximum size that we can store is 2000.
+- It is a type of "variable-length memory allocation" where there is no wastage of memory in Varchar.
+
+## VARCHAR2
+
+- Varchar2 is the updated version of Varchar.
+- The size is updated from 2000 to 4000.
+- Syntax: `Varchar2(size)`
+- The maximum size we can store is 18,4000.
+
+## Differences between CHAR and VARCHAR:
+
+### CHAR:
+
+- CHAR is a fixed-length datatype.
+- It allocates storage space for the maximum specified length regardless of the actual data length.
+- Trailing spaces are padded to fill the fixed length.
+- Ideal for storing data where the length is consistent across all entries.
+- The storage space for a CHAR column is always equal to its defined length multiplied by the number of rows.
+
+### VARCHAR:
+
+- VARCHAR is a variable-length datatype.
+- It only allocates storage space for the actual data length plus two bytes.
+- No padding of spaces is performed.
+- Suitable for storing data with varying lengths.
+- The storage space for a VARCHAR column is equal to the actual data length plus one byte for the length indicator.
+
+## Example:
+
+Suppose you have a CHAR(10) column and a VARCHAR(10) column.
+- If you insert 'hello' into both columns, CHAR will store 'hello ' (padded with spaces to reach 10 characters), while VARCHAR will store 'hello' (without any padding).
+- If you insert 'hi' into both columns, both CHAR and VARCHAR will store 'hi', but CHAR will still allocate space for 10 characters, while VARCHAR will only allocate space for 2 characters plus two bytes for length information.
+
+## Summary:
+
+- CHAR is fixed-length and always uses the specified length.
+- VARCHAR is variable-length and only uses as much storage as needed for the actual data.
 
 
 
@@ -1352,5 +1620,387 @@ In these queries:
 
 
 
+# Differences between VARCHAR and VARCHAR2
+
+## VARCHAR:
+
+- VARCHAR is a variable-length character string datatype.
+- It stores variable-length character data.
+- In some databases, VARCHAR may have a limit on the maximum length that can be stored.
+- Trailing spaces are not removed or padded automatically.
+- It is not standardized across all databases, and its behavior may vary. 🔄
+
+## VARCHAR2:
+
+- VARCHAR2 is also a variable-length character string datatype.
+- It is specifically used in Oracle databases.
+- VARCHAR2 is an extension of the VARCHAR datatype, introduced to overcome the limitations of VARCHAR.
+- It stores variable-length character data.
+- VARCHAR2 does not have a maximum length limit in Oracle databases.
+- Trailing spaces are not removed or padded automatically.
+- It is standardized within Oracle databases and provides better performance and flexibility compared to VARCHAR. 💪
+
+## Summary:
+
+While both VARCHAR and VARCHAR2 are used to store variable-length character data, VARCHAR2 is specifically used in Oracle databases and offers better performance and flexibility compared to VARCHAR. Additionally, VARCHAR2 does not have a maximum length limit and is standardized within Oracle databases.
 
 
+# Number 🔢
+
+This datatype is used to store numeric values.
+
+It can accept two arguments:
+
+- Precision
+- Scale
+
+`Number(Precision, Scale)`
+
+**Precision:**
+
+It determines the total number of digits that can be stored, including both integer and decimal digits.
+
+**Scale:**
+
+It determines the number of digits that can be stored after the decimal point within the precision.
+
+The maximum precision that can be specified is 38. The maximum scale that can be specified is 127.
+
+**Example:**
+
+- `Number(10, 2)` can store values with up to 10 digits in total, with 2 digits after the decimal point.
+- `Number(5, 0)` can store values with up to 5 digits in total, with no digits after the decimal point.
+- `Number(10, 3)` can store values with up to 10 digits in total, with 3 digits after the decimal point.
+
+**Note:**
+
+- The default value for the scale parameter in the Number datatype is zero.
+- This means that if the scale is not explicitly specified, the number will be considered as a whole number without any decimal places.
+- When converting a character to a numeric datatype using automatic type conversion in a computer database system, it's essential to be aware of the default behavior to ensure accurate data representation and calculations.
+
+---
+
+**Date 📅:**
+
+In Oracle, the syntax for representing a date is 'DD-Mon-YY'. For example, '15-Mar-24' represents the date March 15th, 2024.
+
+There are two commonly used Oracle date formats:
+
+- 'DD-Mon-YY'
+- 'DD-Mon-YYYY'
+
+When specifying dates in SQL queries or statements, they should always be enclosed in single quotes.
+
+---
+
+**Large Objects 💾:**
+
+In Oracle databases, there are two types of large object datatypes used for storing images, videos, and other binary data:
+
+**CLOB (Character Large Object):**
+
+- Used to store character data with a maximum size of up to 4GB.
+- Suitable for storing large amounts of text data.
+
+**BLOB (Binary Large Object):**
+
+- Used to store binary data such as images, videos, audio files, etc.
+- Also capable of storing up to 4GB of data.
+
+Both CLOB and BLOB are essential for handling large volumes of data, with BLOB being specifically designed for binary data storage.
+
+
+# Constraints 🛡️
+
+Constraints are conditions applied to columns in a database to ensure data integrity.
+
+## Types of Constraints:
+
+### Unique Constraint:
+
+- Ensures that a column or combination of columns contains unique values.
+- Prevents the insertion of duplicate or repeated values.
+
+### Not Null Constraint:
+
+- Requires a column to have a value, i.e., it cannot be NULL.
+
+### Check Constraint:
+
+- Validates data based on a specified condition for a column.
+- Allows defining custom validation rules for data integrity.
+
+### Primary Key Constraint:
+
+- Identifies a column or combination of columns that uniquely identify each row in a table.
+- Prevents duplicate values and NULL entries in the specified column(s).
+- Each table can have only one primary key.
+
+### Foreign Key Constraint:
+
+- Establishes a relationship between two tables based on a column or combination of columns.
+- Enforces referential integrity by ensuring that values in the foreign key column(s) match values in the referenced primary key column(s) of another table.
+- Can have multiple foreign key constraints in a table.
+
+## Characteristics of Foreign Key Constraint:
+
+- Multiple foreign keys can exist in a table.
+- Allows repeated or duplicate values.
+- Allows NULL values.
+- Not a combination of Unique and Not Null constraints.
+- Belongs to the child table but references the parent table.
+- Also referred to as a referential integrity constraint.
+
+## Note:
+
+Only primary keys can become foreign keys in another table, establishing a relationship between tables. When transferred, a primary key becomes a foreign key in another table.
+
+# Differences Between Primary Key and Foreign Key 🗝️
+
+## Definition:
+
+**Primary Key (PK):** 
+A primary key is a column or a set of columns that uniquely identifies each row in a table. It ensures the uniqueness and integrity of the data within the table.
+
+**Foreign Key (FK):** 
+A foreign key is a column or a set of columns in one table that refers to the primary key in another table. It establishes a relationship between the two tables, enforcing referential integrity.
+
+## Purpose:
+
+**Primary Key (PK):** 
+The primary key is used to uniquely identify each row in the table and ensure data integrity. It is typically used as a unique identifier for records.
+
+**Foreign Key (FK):** 
+The foreign key is used to establish relationships between tables. It ensures that the values in the referencing column(s) of one table match the values in the referenced column(s) of another table.
+
+## Uniqueness:
+
+**Primary Key (PK):** 
+Primary key values must be unique within the table. No two rows can have the same primary key value.
+
+**Foreign Key (FK):** 
+Foreign key values in one table can have duplicates, but they must match existing primary key values in the referenced table.
+
+## Constraint Type:
+
+**Primary Key (PK):** 
+Primary key constraints enforce uniqueness and non-nullability. They ensure that the primary key column(s) contain unique and non-null values.
+
+**Foreign Key (FK):** 
+Foreign key constraints enforce referential integrity. They ensure that values in the foreign key column(s) match values in the primary key column(s) of the referenced table or are null if allowed.
+
+## Number of Keys:
+
+**Primary Key (PK):** 
+Each table can have only one primary key constraint.
+
+**Foreign Key (FK):** 
+A table can have multiple foreign key constraints, each referencing different tables.
+
+## Location:
+
+**Primary Key (PK):** 
+Primary key constraints are defined within the table where the unique identifier resides.
+
+**Foreign Key (FK):** 
+Foreign key constraints are defined in the table that contains the referencing column(s), pointing to the primary key column(s) of another table.
+
+## Role in Relationships:
+
+**Primary Key (PK):** 
+Primary keys establish the identity of records within a table.
+
+**Foreign Key (FK):** 
+Foreign keys establish relationships between tables, representing dependencies or associations between related data.
+
+
+# Difference between Primary Key and Unique Key 🔑
+
+## Purpose:
+
+**Primary Key:** 
+The primary key uniquely identifies each record in a table and serves as the main method of identifying records. It must be unique and not null.
+
+**Unique Key:** 
+A unique key constraint ensures that all values in a column or combination of columns are distinct from one another. While similar to a primary key, a unique key constraint can allow null values, and a table can have multiple unique key constraints.
+
+## Null Values:
+
+**Primary Key:** 
+Does not allow null values in the key columns. Every record must have a unique value in the primary key column(s).
+
+**Unique Key:** 
+Allows null values in the key columns. While the key values must be unique, a unique key constraint can include null values.
+
+## Number of Keys:
+
+**Primary Key:** 
+Each table can have only one primary key. It uniquely identifies each record and is used as a reference for foreign key constraints in related tables.
+
+**Unique Key:** 
+A table can have multiple unique key constraints. Each unique key constraint enforces uniqueness within its own set of columns but does not have the same significance as the primary key in terms of identifying records.
+
+## Automatic Indexing:
+
+**Primary Key:** 
+Typically automatically creates a clustered index (or a unique non-clustered index in some database systems) on the primary key column(s) to optimize data retrieval and enforce uniqueness.
+
+**Unique Key:** 
+May or may not automatically create an index on the unique key column(s), depending on the database system. The creation of an index is often left to the discretion of the database administrator.
+
+## Referential Integrity:
+
+**Primary Key:** 
+Establishes referential integrity between tables by defining relationships with foreign keys. Foreign keys in related tables reference the primary key of the parent table.
+
+**Unique Key:** 
+While a unique key constraint ensures data integrity within a single table, it does not establish relationships with foreign keys in other tables.
+
+## Use Cases:
+
+**Primary Key:** 
+Used to uniquely identify records and establish relationships between tables. It is critical for data integrity and normalization.
+
+**Unique Key:** 
+Used to enforce uniqueness within a table on one or more columns. It can be used for fields that require uniqueness but are not intended to be primary identifiers.
+
+
+
+# DDL (Data Definition Language) 🛠️
+
+DDL (Data Definition Language) is a set of SQL commands used to define, modify, and manage database objects such as tables, views, indexes, etc. It allows users to perform various operations related to the structure of the database. DDL statement deals with the table.
+
+## Main DDL Statements:
+
+### CREATE:
+
+The CREATE statement is used to create new database objects such as tables, views, indexes, etc.
+
+<!-- Syntax example:
+CREATE TABLE table_name (
+    column1 datatype constraints,
+    column2 datatype constraints,
+    ...
+); -->
+
+**Example:**
+
+CREATE TABLE products (
+    product_id INT PRIMARY KEY,
+    product_name VARCHAR(100) NOT NULL,
+    description TEXT,
+    category_id INT,
+    price DECIMAL(10, 2),
+    stock_quantity INT DEFAULT 0,
+    creation_date DATE DEFAULT CURRENT_DATE,
+    CONSTRAINT fk_category_id FOREIGN KEY (category_id) REFERENCES categories(category_id),
+    CONSTRAINT chk_price CHECK (price >= 0),
+    CONSTRAINT chk_stock_quantity CHECK (stock_quantity >= 0)
+);
+
+```markdown
+# SQL ALTER Statement
+
+The ALTER statement is used to modify the structure of existing database objects. It allows you to add, modify, or drop columns, constraints, or other properties of a table without needing to drop and recreate them.
+
+## Syntax
+
+The syntax for the `ALTER` statement varies depending on the specific object you want to modify. Here are some common examples:
+
+1. **Alter Table:**
+   ```sql
+   ALTER TABLE table_name
+   action;
+   ```
+
+2. **Alter View:**
+   ```sql
+   ALTER VIEW view_name
+   action;
+   ```
+
+3. **Alter Index:**
+   ```sql
+   ALTER INDEX index_name
+   action;
+   ```
+
+4. **Alter Sequence:**
+   ```sql
+   ALTER SEQUENCE sequence_name
+   action;
+   ```
+
+5. **Alter Trigger:**
+   ```sql
+   ALTER TRIGGER trigger_name
+   action;
+   ```
+
+6. **Alter User:**
+   ```sql
+   ALTER USER username
+   action;
+   ```
+
+7. **Alter Database:**
+   ```sql
+   ALTER DATABASE database_name
+   action;
+   ```
+
+## Actions
+
+The `action` part of the syntax specifies the changes you want to make to the object. Some common actions include:
+
+- **Add a Column:** Adds a new column to a table.
+- **Modify a Column:** Modifies the properties of an existing column.
+- **Drop a Column:** Removes a column from a table.
+- **Rename a Column:** Changes the name of a column.
+- **Add or Modify Constraints:** Adds or modifies constraints like primary key, foreign key, check constraint, etc.
+- **Rename Object:** Changes the name of the object.
+- **Enable or Disable Triggers:** Activates or deactivates triggers associated with a table.
+- **Enable or Disable Constraints:** Activates or deactivates constraints on a table.
+- **Change Tablespace:** Moves the table to a different tablespace.
+
+## Examples
+
+Here are some examples of using the `ALTER` statement:
+
+1. **Add a Column:**
+   ```sql
+   ALTER TABLE employees
+   ADD COLUMN email VARCHAR(100);
+   ```
+
+2. **Modify a Column:**
+   ```sql
+   ALTER TABLE employees
+   MODIFY COLUMN salary NUMBER(10, 2);
+   ```
+
+3. **Drop a Column:**
+   ```sql
+   ALTER TABLE employees
+   DROP COLUMN address;
+   ```
+
+4. **Rename a Column:**
+   ```sql
+   ALTER TABLE employees
+   RENAME COLUMN emp_id TO employee_id;
+   ```
+
+5. **Add a Constraint:**
+   ```sql
+   ALTER TABLE employees
+   ADD CONSTRAINT fk_dept_id
+   FOREIGN KEY (department_id) REFERENCES departments(department_id);
+   ```
+
+## Considerations
+
+- The specific actions available with `ALTER` depend on the database system you are using (e.g., MySQL, PostgreSQL, Oracle, etc.).
+- Some actions may require specific permissions or privileges.
+- Always be cautious when using `ALTER` statements, especially in production environments, as they can have significant impacts on your database schema and data.
+```
