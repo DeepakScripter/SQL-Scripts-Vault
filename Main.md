@@ -2004,3 +2004,65 @@ Here are some examples of using the `ALTER` statement:
 - Some actions may require specific permissions or privileges.
 - Always be cautious when using `ALTER` statements, especially in production environments, as they can have significant impacts on your database schema and data.
 ```
+
+
+The DROP statement is used to delete an object, typically a table, from the database along with its table structure.
+
+To recover a dropped table (only in Oracle):
+```sql
+FLASHBACK TABLE table_name TO BEFORE DROP;
+```
+
+To drop a table from the recycle bin (only in Oracle):
+```sql
+PURGE TABLE table_name;
+```
+
+To show the contents of the recycle bin (only in Oracle):
+```sql
+SHOW RECYCLEBIN;
+```
+
+To show the names of all tables in the database:
+```sql
+SHOW TABLES;
+```
+
+Example:
+```sql
+DROP TABLE employees;
+```
+
+Note: The commands to recover from the recycle bin and show the recycle bin or table names are specific to Oracle. Other database management systems may have different methods or features for similar functionality.
+
+## RENAME Statement
+
+The RENAME statement is used to rename an existing database object.
+
+Syntax example:
+```sql
+RENAME old_table_name TO new_table_name;
+```
+
+## TRUNCATE Statement
+
+The TRUNCATE statement is used to delete all rows from a table, effectively resetting the table to its initial state. Unlike the DROP statement, TRUNCATE retains the table structure.
+
+Syntax example:
+```sql
+TRUNCATE TABLE table_name;
+```
+
+These DDL statements are fundamental for defining and managing the structure of a database, enabling users to create, modify, and delete database objects as needed.
+
+## Note
+
+### DESC Command
+
+The DESC command is a SQL*Plus command used to describe the structure of a table, view, or synonym. It provides information about the columns, data types, and constraints of the specified database object. It is commonly used to inspect the structure of database objects, especially when working in a command-line interface like SQL*Plus or SQLcl.
+
+Syntax:
+```sql
+DESC table_name;
+```
+
