@@ -2302,3 +2302,79 @@ Rownum is generated at the time of execution.
 Rownum always starts with 1.
 Rownum values cannot be duplicated.
 Rownum gets incremented for each row it is assigned to. 🔢
+
+
+
+
+# ROWID Usage
+
+## Selecting Rows by ROWID
+
+### Query 1: Selecting a Specific ROWID
+```sql
+-- Selecting a specific ROWID
+SELECT ROWID, EMP.* FROM emp WHERE ROWID = '3';
+```
+
+### Query 2: Selecting ROWIDs Less Than or Equal to 10
+```sql
+-- Selecting ROWIDs less than or equal to 10
+SELECT * FROM emp WHERE ROWID <= '10';
+```
+
+### Query 3: Selecting ROWIDs Greater Than 10
+```sql
+-- Selecting ROWIDs greater than 10
+SELECT * FROM emp WHERE ROWID > '10';
+```
+
+### Query 4: Selecting a ROWID that Does Not Exist
+```sql
+-- SQL PLUS IN THIS QUERY OUTPUT IS NO ROW SELECTED
+SELECT * FROM emp WHERE ROWID = '3';
+```
+
+## Making ROWNUM Static
+
+### Query: Making ROWNUM Static and Aliasing as SLno
+```sql
+-- Making ROWNUM static and aliasing as SLno
+SELECT 
+    ROWNUM AS SLno, 
+    emp.* 
+FROM 
+    (
+        SELECT 
+            empno, 
+            ename, 
+            job, 
+            mgr, 
+            hiredate, 
+            sal, 
+            comm, 
+            deptno
+        FROM 
+            emp
+        -- Add any conditions or sorting if needed
+    ) emp;
+```
+
+### Note:
+- The inner query retrieves the columns from the emp table.
+- The ROWNUM pseudocolumn is aliased as SLno.
+- Then, in the outer query, the columns from the inner query along with the aliased SLno column are selected.
+- Now, you can use SLno as a separate static column name instead of ROWNUM. Make sure to adjust the query according to your specific requirements and add any conditions or sorting if needed.
+
+## Using ROWID Instead of ROWNUM
+
+### Query: Using ROWID as SLNO and Selecting Specific ROWIDs
+```sql
+-- Using ROWID instead of ROWNUM and selecting specific ROWIDs
+SELECT * FROM (SELECT ROWID SLNO, EMP.* FROM EMP) WHERE SLNO = '3';
+```
+
+### Query: Using ROWID Instead of ROWNUM and Selecting Multiple ROWIDs
+```sql
+-- Using ROWID instead of ROWNUM and selecting multiple ROWIDs
+SELECT * FROM (SELECT ROWID SLNO, EMP.* FROM EMP) WHERE SLNO IN (1,2,3,4,5,6,7,8,9,10);
+```
