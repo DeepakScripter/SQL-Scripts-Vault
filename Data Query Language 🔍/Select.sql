@@ -1,0 +1,2 @@
+-- Select employee name and salary from the employee table
+-- SELECT Ename, sal FROM emp;

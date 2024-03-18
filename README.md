@@ -752,136 +752,171 @@ This query would return salaries that appear more than once in the `EMP` table:-
 - We use a sub-query when we need to utilize unknown or dynamic values in our query.
 
 ### Example Sub-Query:
-```
+```sql
 SELECT ename, job
 FROM emp
 WHERE deptno IN (SELECT deptno
                  FROM emp
                  WHERE job = 'CLERK'
                  GROUP BY deptno
-                 HAVING COUNT(*) >= 2);```
+                 HAVING COUNT(*) >= 2);
+```
 
 This query retrieves the names (`ename`) and job titles (`job`) of employees from the `emp` table where the department number (`deptno`) is in the set of department numbers where there are at least two clerks.
 
 ### More Examples:
 
-```-- Retrieve employees with a salary higher than Adams
+```sql
+-- Retrieve employees with a salary higher than Adams
 SELECT ENAME, SAL 
 FROM EMP 
-WHERE SAL > (SELECT SAL FROM EMP WHERE ENAME = 'ADAMS');```
+WHERE SAL > (SELECT SAL FROM EMP WHERE ENAME = 'ADAMS');
+```
 
-```-- Retrieve employees with a salary higher than Miller and lower than Allen
+```sql
+-- Retrieve employees with a salary higher than Miller and lower than Allen
 SELECT ENAME, SAL 
 FROM EMP 
 WHERE SAL > (SELECT SAL FROM EMP where ENAME = 'MILLER') 
-AND SAL < (SELECT SAL FROM EMP where ENAME = 'ALLEN');```
+AND SAL < (SELECT SAL FROM EMP where ENAME = 'ALLEN');
+```
 
-```-- Count employees hired after King
+```sql
+-- Count employees hired after King
 SELECT COUNT(*) 
 FROM EMP 
-WHERE HIREDATE > (SELECT HIREDATE FROM EMP where ENAME = 'KING');```
+WHERE HIREDATE > (SELECT HIREDATE FROM EMP where ENAME = 'KING');
+```
 
-```-- Retrieve employees with the same department number as Turner, who is a clerk
+```sql
+-- Retrieve employees with the same department number as Turner, who is a clerk
 SELECT * 
 FROM EMP 
 WHERE JOB = 'CLERK' 
-AND DEPTNO = (SELECT DEPTNO FROM EMP where ENAME = 'TURNER');```
+AND DEPTNO = (SELECT DEPTNO FROM EMP where ENAME = 'TURNER');
+```
 
-```-- Retrieve employees with a salary 12 times less than King but greater than Smith
+```sql
+-- Retrieve employees with a salary 12 times less than King but greater than Smith
 SELECT ENAME, SAL, JOB 
 FROM EMP 
 WHERE SAL*12 < (SELECT SAL*12 FROM EMP where ENAME = 'KING') 
-AND SAL*12 > (SELECT SAL*12 FROM EMP where ENAME = 'SMITH');```
+AND SAL*12 > (SELECT SAL*12 FROM EMP where ENAME = 'SMITH');
+```
 
 # Subqueries in SQL 🔄
 
 In SQL, when data needs to be selected from one table based on a condition that involves data from another table, a subquery can be used. This scenario arises when the condition to filter data exists in a different table than the one from which data needs to be selected.
 
-Here's how a subquery can be used to achieve this:
-```
+```sql
 SELECT column1, column2, ...
 FROM table1
 WHERE condition_column IN (SELECT columnX FROM table2 WHERE condition);
 ```
 
 ## Example Queries:
-``` -- Query: Retrieve department names where employee 'SCOTT' works
-select DNAME 
+```sql
+-- Query: Retrieve department names where employee 'SCOTT' works
+SELECT DNAME 
 FROM DEPT 
-WHERE DEPTNO IN(select DEPTNO
+WHERE DEPTNO IN (SELECT DEPTNO
    FROM EMP
-   where ENAME = 'SCOTT');
-
-
+   WHERE ENAME = 'SCOTT');
 
 -- Query: Retrieve employee names and salaries for departments located in 'CHICAGO'
-select ENAME, SAL FROM EMP where DEPTNO IN (select DEPTNO from dept where LOC = 'CHICAGO');```
-
-
-``` -- Query: Retrieve employee names where salary is greater than 'SCOTT' and department is 'ACCOUNTING'
-select ENAME FROM EMP WHERE SAL > (select SAL from emp where ENAME = 'SCOTT') AND DEPTNO IN (select DEPTNO from dept where DNAME = 'ACCOUNTING');
+SELECT ENAME, SAL FROM EMP WHERE DEPTNO IN (SELECT DEPTNO FROM dept WHERE LOC = 'CHICAGO');
 ```
 
 
-```-- Query: Retrieve employee names and salaries where salary is greater than 'SCOTT' and department is 'RESEARCH'
-select ENAME, SAL from emp where sal > (select sal from emp where ename = 'SCOTT') and deptno in (select deptno from dept where dname = 'RESEARCH')
+```sql
+-- Query: Retrieve employee names where salary is greater than 'SCOTT' and department is 'ACCOUNTING'
+SELECT ENAME FROM EMP WHERE SAL > (SELECT SAL FROM emp WHERE ENAME = 'SCOTT') AND DEPTNO IN (SELECT DEPTNO FROM dept WHERE DNAME = 'ACCOUNTING');
 ```
 
+
+```sql
+-- Query: Retrieve employee names and salaries where salary is greater than 'SCOTT' and department is 'RESEARCH'
+SELECT ENAME, SAL FROM emp WHERE sal > (SELECT sal FROM emp WHERE ename = 'SCOTT') AND DEPTNO IN (SELECT deptno FROM dept WHERE dname = 'RESEARCH');
 ```
+
+```sql
 -- Query: Retrieve locations of departments with non-null commissions and department number '30'
-SELECT LOC FROM DEPT WHERE DEPTNO IN (SELECT DEPTNO FROM EMP WHERE COMM IS not null AND DEPTNO = '30');
+SELECT LOC FROM DEPT WHERE DEPTNO IN (SELECT DEPTNO FROM EMP WHERE COMM IS NOT NULL AND DEPTNO = '30');
 ```
 
 ### Additional Examples:
 
-```
+```sql
 -- Query: Retrieve the maximum salary from the employee table
-select MAX(SAL) from emp ;```
-
-```-- Query: Retrieve the minimum salary from the employee table
-select MIN(SAL) from emp;```
-
-```-- Query: Retrieve employee names with the maximum salary
-select ENAME from emp where SAL IN (select MAX(SAL) from emp);```
-
-```-- Query: Retrieve employee names with the minimum salary
-select ENAME from emp where SAL IN (select MIN(SAL) from emp)```
-
-```-- Query: Retrieve employee names with the latest hire date
-select ENAME from emp where HIREDATE IN (select MAX(HIREDATE) from emp)```
-
-```-- Query: Retrieve employee names with the earliest hire date
-select ENAME from emp where HIREDATE IN (select MIN(HIREDATE) from emp)```
-
-```-- Query: Retrieve employee names and commissions with the maximum commission
-select ENAME, COMM from emp where COMM IN (select MAX(COMM) from emp);```
-
-```-- Query: Retrieve employee names and commissions with the minimum commission
-select ENAME, COMM from emp where COMM IN (select MIN(COMM) from emp);
+SELECT MAX(SAL) FROM emp;
 ```
 
-```-- HOW TO FIND MAX SAL AND MIN SAL IN EMP TABLE
+```sql
+-- Query: Retrieve the minimum salary from the employee table
+SELECT MIN(SAL) FROM emp;
+```
+
+```sql
+-- Query: Retrieve employee names with the maximum salary
+SELECT ENAME FROM emp WHERE SAL IN (SELECT MAX(SAL) FROM emp);
+```
+
+```sql
+-- Query: Retrieve employee names with the minimum salary
+SELECT ENAME FROM emp WHERE SAL IN (SELECT MIN(SAL) FROM emp);
+```
+
+```sql
+-- Query: Retrieve employee names with the latest hire date
+SELECT ENAME FROM emp WHERE HIREDATE IN (SELECT MAX(HIREDATE) FROM emp);
+```
+
+```sql
+-- Query: Retrieve employee names with the earliest hire date
+SELECT ENAME FROM emp WHERE HIREDATE IN (SELECT MIN(HIREDATE) FROM emp);
+```
+
+```sql
+-- Query: Retrieve employee names and commissions with the maximum commission
+SELECT ENAME, COMM FROM emp WHERE COMM IN (SELECT MAX(COMM) FROM emp);
+```
+
+```sql
+-- Query: Retrieve employee names and commissions with the minimum commission
+SELECT ENAME, COMM FROM emp WHERE COMM IN (SELECT MIN(COMM) FROM emp);
+```
+
+```sql
 -- Query to find the maximum salary in the EMP table
-SELECT MAX(SAL) FROM emp;```
+SELECT MAX(SAL) FROM emp;
+```
 
-```-- Query to find the minimum salary in the EMP table
-SELECT MIN(SAL) FROM emp;```
+```sql
+-- Query to find the minimum salary in the EMP table
+SELECT MIN(SAL) FROM emp;
+```
 
-- NOTE: 
-- A nested subquery refers to a query written within another query. When a subquery is placed inside another query, it's called a nested subquery. Most database systems support nesting subqueries, but there might be variations in the maximum allowed depth of nesting across different systems. WE CAN WRRIEN 255 SUB QUERYS.
+- **NOTE:** 
+  - A nested subquery refers to a query written within another query. When a subquery is placed inside another query, it's called a nested subquery. Most database systems support nesting subqueries, but there might be variations in the maximum allowed depth of nesting across different systems.
 
-```-- To find the nth maximum or minimum salary using subqueries while minimizing the number of subqueries to N - 1.
+```sql
+-- To find the nth maximum or minimum salary using subqueries while minimizing the number of subqueries to N - 1.
 -- Query to find the second maximum salary
-SELECT ENAME FROM emp WHERE SAL IN (SELECT MAX(SAL) FROM emp WHERE SAL < (SELECT MAX(SAL) FROM emp));```
+SELECT ENAME FROM emp WHERE SAL IN (SELECT MAX(SAL) FROM emp WHERE SAL < (SELECT MAX(SAL) FROM emp));
+```
 
-```-- Query to find the employee number with the second maximum salary
-SELECT EMPNO FROM emp WHERE SAL IN (SELECT MAX(SAL) FROM emp WHERE SAL < (SELECT MAX(SAL) FROM emp ));```
+```sql
+-- Query to find the employee number with the second maximum salary
+SELECT EMPNO FROM emp WHERE SAL IN (SELECT MAX(SAL) FROM emp WHERE SAL < (SELECT MAX(SAL) FROM emp ));
+```
 
-```-- Query to find the department name where employees earn the second maximum salary
-SELECT DNAME FROM DEPT WHERE DEPTNO IN (SELECT DEPTNO FROM emp WHERE SAL IN (SELECT MAX(SAL) FROM emp WHERE SAL < (SELECT MAX(SAL) FROM emp)));```
+```sql
+-- Query to find the department name where employees earn the second maximum salary
+SELECT DNAME FROM DEPT WHERE DEPTNO IN (SELECT DEPTNO FROM emp WHERE SAL IN (SELECT MAX(SAL) FROM emp WHERE SAL < (SELECT MAX(SAL) FROM emp)));
+```
 
-
-```-- Query to find the department name and location where employees earn the second maximum salary
+```sql
+-- Query to find the department name and location where employees earn the second maximum salary
 SELECT DNAME, LOC 
 FROM DEPT 
 WHERE DEPTNO IN (
@@ -901,7 +936,9 @@ WHERE DEPTNO IN (
     )
 );
 ```
-```-- Query to find the location and department name where employees earn the second minimum salary
+
+```sql
+-- Query to find the location and department name where employees earn the second minimum salary
 SELECT LOC, DNAME 
 FROM DEPT 
 WHERE DEPTNO IN (
@@ -921,7 +958,9 @@ WHERE DEPTNO IN (
     )
 );
 ```
-```-- Query to select the names of employees who are managed by 'SCOTT'
+
+```sql
+-- Query to select the names of employees who are managed by 'SCOTT'
 SELECT ENAME 
 FROM EMP 
 WHERE EMPNO IN (
@@ -930,7 +969,9 @@ WHERE EMPNO IN (
     WHERE ENAME = 'SCOTT'
 );
 ```
-```-- Query to select the salary and names of employees who are managed by 'ADAMS'
+
+```sql
+-- Query to select the salary and names of employees who are managed by 'ADAMS'
 SELECT SAL, ENAME 
 FROM EMP 
 WHERE ENAME IN (
@@ -943,7 +984,9 @@ WHERE ENAME IN (
     )
 );
 ```
-```-- Query to select the department names where employees managed by 'JONES' belong
+
+```sql
+-- Query to select the department names where employees managed by 'JONES' belong
 SELECT DNAME 
 FROM DEPT 
 WHERE DEPTNO IN (
@@ -956,7 +999,6 @@ WHERE DEPTNO IN (
     )
 );
 ```
-
 
 # TYPES OF SUB QUERY
 

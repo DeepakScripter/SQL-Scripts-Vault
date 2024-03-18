@@ -1,0 +1,11 @@
+-- Query 1: Get job, minimum salary, maximum salary, average salary, and total salary for each job where the maximum salary is less than 5000 and minimum salary is greater than 1000
+-- SELECT JOB, MIN(SAL), MAX(SAL), AVG(SAL), SUM(SAL) 
+-- FROM EMP 
+-- GROUP BY JOB 
+-- HAVING MAX(SAL) < 5000 AND MIN(SAL) > 1000;
+
+-- Query 2: Uncommented query, commented out for demonstration
+-- SELECT SAL 
+-- FROM EMP 
+-- GROUP BY SAL 
+-- HAVING COUNT(*) > 1;

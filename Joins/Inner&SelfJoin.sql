@@ -1,0 +1,33 @@
+-- Query 1: Select employee names, their managers' names, and department names.
+-- SELECT E1.ENAME, E2.ENAME, D1.DNAME, D2.DNAME 
+-- FROM EMP E1, EMP E2, DEPT D1, DEPT D2 
+-- WHERE E1.MGR = E2.EMPNO 
+-- AND E1.DEPTNO = D1.DEPTNO 
+-- AND E2.DEPTNO = D2.DEPTNO
+
+-- -- Query 2: Select employee names, their managers' names, and department names where employee salary is greater than 2000 and department number is 20.
+-- SELECT E1.ENAME, E2.ENAME, D1.DNAME, D2.DNAME 
+-- FROM EMP E1, EMP E2, DEPT D1, DEPT D2 
+-- WHERE E1.MGR = E2.EMPNO 
+-- AND E1.DEPTNO = D1.DEPTNO 
+-- AND E2.DEPTNO = D2.DEPTNO 
+-- AND E1.SAL > 2000 
+-- AND E2.DEPTNO = 20;
+
+-- Query 3: Select employee names, their department locations, manager names, and manager department locations for employees in departments 10 or 30, whose salary is greater than that of employee 'FROD', and department location is either 'NEWYORK' or 'CHICAGO'.
+-- SELECT E1.ENAME, D1.LOC, E2.ENAME, D2.LOC 
+-- FROM EMP E1, EMP E2, DEPT D1, DEPT D2 
+-- WHERE E1.MGR = E2.EMPNO 
+-- AND E1.DEPTNO = D1.DEPTNO 
+-- AND E2.DEPTNO = D2.DEPTNO 
+-- AND E1.DEPTNO IN (10, 30) 
+-- AND E2.SAL > (SELECT SAL FROM EMP WHERE ENAME = 'FROD') 
+-- AND D1.LOC IN ('NEWYORK', 'CHICAGO');
+
+--- Query 4: Select employee names, their manager names, and department locations for employees hired before September 28, 1981, in departments 10 or 40, whose salary is greater than that of employee 'SMITH'.
+-- SELECT E1.ENAME, E2.ENAME, D1.LOC, D2.LOC 
+-- FROM EMP E1, EMP E2, DEPT D1, DEPT D2 
+-- WHERE E1.MGR = E2.EMPNO 
+-- AND E1.HIREDATE < '1981-09-28' 
+-- AND (E2.DEPTNO = 10 OR E2.DEPTNO = 40) 
+-- AND E2.SAL > (SELECT SAL FROM EMP WHERE ENAME = 'SMITH');
