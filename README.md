@@ -65,7 +65,8 @@
 
 ```
 -- Example query:
--- select Ename, sal from emp;```
+-- select Ename, sal from emp;
+```
 
 ## What is an Expression? 🤔
 
