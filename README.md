@@ -505,61 +505,92 @@ Analytic functions operate on a group of rows and return a result for each row b
 6. Column names with multi-row functions cannot be used in the SELECT clause.
 7. COUNT is the only multi-row function to which '*' can be passed as an argument.
 8. Multi-row functions can be used in the GROUP BY, ORDER BY, HAVING, UNION, INTERSECT, and EXCEPT clauses.
+# Multi-Row SQL Functions Examples
 
-## Examples of Multi-Row Functions:
+Below are examples of SQL queries demonstrating the use of multi-row functions to perform various calculations and analyses on the EMP table.
 
-```sql
--- Find the maximum salary in the EMP table
-SELECT MAX(SAL) FROM EMP;```
-
-```sql
--- Calculate the total salary sum in the EMP table
-SELECT SUM(SAL) FROM EMP;```
+### 1. Find the Maximum Salary in the EMP table
 
 ```sql
--- Calculate the average salary in the EMP table
-SELECT AVG(SAL) FROM EMP;```
+SELECT MAX(SAL) FROM EMP;
+```
+
+### 2. Calculate the Total Salary Sum in the EMP table
 
 ```sql
--- Count the number of rows with non-null salary values in the EMP table
-SELECT COUNT(SAL) FROM EMP;```
+SELECT SUM(SAL) FROM EMP;
+```
+
+### 3. Calculate the Average Salary in the EMP table
 
 ```sql
--- Count the total number of rows in the EMP table
-SELECT COUNT(*) FROM EMP;```
+SELECT AVG(SAL) FROM EMP;
+```
+
+### 4. Count the Number of Rows with Non-Null Salary Values in the EMP table
 
 ```sql
--- Count the number of distinct department numbers in the EMP table
-SELECT COUNT(DISTINCT DEPTNO) FROM EMP;```
+SELECT COUNT(SAL) FROM EMP;
+```
+
+### 5. Count the Total Number of Rows in the EMP table
 
 ```sql
--- Find the maximum salary in the EMP table for department number 20
-SELECT MAX(SAL) FROM EMP WHERE DEPTNO = '20';```
+SELECT COUNT(*) FROM EMP;
+```
+
+### 6. Count the Number of Distinct Department Numbers in the EMP table
 
 ```sql
--- Count the number of rows with salary greater than 2000 and department number 20
-SELECT COUNT(*) FROM EMP WHERE SAL > 2000 AND DEPTNO = '20';```
+SELECT COUNT(DISTINCT DEPTNO) FROM EMP;
+```
+
+### 7. Find the Maximum Salary in the EMP table for Department Number 20
 
 ```sql
--- Calculate the total salary sum for employees with the job title 'MANAGER'
-SELECT SUM(SAL) FROM EMP WHERE JOB = 'MANAGER';```
+SELECT MAX(SAL) FROM EMP WHERE DEPTNO = '20';
+```
+
+### 8. Count the Number of Rows with Salary Greater Than 2000 and Department Number 20
 
 ```sql
--- Count the number of rows with non-null commission and department number 20
-SELECT COUNT(*) FROM EMP WHERE COMM IS NOT NULL AND DEPTNO = '20';```
+SELECT COUNT(*) FROM EMP WHERE SAL > 2000 AND DEPTNO = '20';
+```
+
+### 9. Calculate the Total Salary Sum for Employees with the Job Title 'MANAGER'
 
 ```sql
--- Calculate the average salary, total salary sum, count of distinct department numbers, and maximum salary in the EMP table
-SELECT AVG(SAL), SUM(SAL), COUNT(DISTINCT DEPTNO), MAX(SAL) FROM EMP;```
-```sql
--- Calculate the average salary, total salary sum, count of distinct department numbers, and maximum salary in the EMP table for department number 20
-SELECT AVG(SAL), SUM(SAL), COUNT(DISTINCT DEPTNO), MAX(SAL) FROM EMP WHERE DEPTNO = '20';```
+SELECT SUM(SAL) FROM EMP WHERE JOB = 'MANAGER';
+```
+
+### 10. Count the Number of Rows with Non-Null Commission and Department Number 20
 
 ```sql
--- Calculate the average salary, total salary sum, count of distinct department numbers, and maximum salary in the EMP table for employees whose name contains 'A' and belong to department number 20
+SELECT COUNT(*) FROM EMP WHERE COMM IS NOT NULL AND DEPTNO = '20';
+```
+
+### 11. Calculate the Average Salary, Total Salary Sum, Count of Distinct Department Numbers, and Maximum Salary in the EMP table
+
+```sql
+SELECT AVG(SAL), SUM(SAL), COUNT(DISTINCT DEPTNO), MAX(SAL) FROM EMP;
+```
+
+### 12. Calculate the Average Salary, Total Salary Sum, Count of Distinct Department Numbers, and Maximum Salary in the EMP table for Department Number 20
+
+```sql
+SELECT AVG(SAL), SUM(SAL), COUNT(DISTINCT DEPTNO), MAX(SAL) FROM EMP WHERE DEPTNO = '20';
+```
+
+### 13. Calculate the Average Salary, Total Salary Sum, Count of Distinct Department Numbers, and Maximum Salary in the EMP table for Employees Whose Name Contains 'A' and Belong to Department Number 20
+
+```sql
 SELECT AVG(SAL), SUM(SAL), COUNT(DISTINCT DEPTNO), MAX(SAL) 
 FROM EMP 
-WHERE ENAME LIKE '%A%' AND DEPTNO = '20';```
+WHERE ENAME LIKE '%A%' AND DEPTNO = '20';
+```
+
+These examples demonstrate the use of various multi-row functions to extract meaningful insights from the EMP table. Each query performs a different analysis or calculation, providing valuable information for decision-making purposes.
+
 
 
 # SQL Group By Operations
