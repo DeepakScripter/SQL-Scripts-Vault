@@ -351,91 +351,101 @@ SELECT * FROM EMP WHERE JOB NOT IN ('CLERK', 'MANAGER');
 
 ### Additional Example Query:
 
-```-- Selecting employees with salary between 1250 and 3000
---SELECT ENAME, SAL FROM EMP WHERE SAL > 1250 AND SAL < 3000;```
+```
+-- Selecting employees with salary between 1250 and 3000
+--SELECT ENAME, SAL FROM EMP WHERE SAL > 1250 AND SAL < 3000;
+```
 
 In addition to the commonly used operators, SQL provides several other operators for specific tasks. Let's explore them:
 
 ## BETWEEN Operator:
 The BETWEEN operator is used to define a range within which the operator works. The ranges cannot overlap within an interval.
-
+```
 -- Example: Selecting employees with salaries between 1000 and 3000
-```SELECT * FROM EMP WHERE SAL BETWEEN 1000 AND 3000;```
+SELECT * FROM EMP WHERE SAL BETWEEN 1000 AND 3000;
+```
+
+```
 
 -- Example: Selecting employees hired between January 1, 1981, and December 31, 1981
 SELECT ENAME, HIREDATE FROM EMP WHERE HIREDATE BETWEEN '1981-01-01' AND '1981-12-31';
-
+```
 
 ## NOT BETWEEN Operator:
 The NOT BETWEEN operator is similar to BETWEEN but rejects the values instead of selecting them.
 
-
+```
 -- Example: Selecting employees with salaries outside the range of 1000 to 3000
-```SELECT * FROM EMP WHERE SAL NOT BETWEEN 1000 AND 3000;```
+SELECT * FROM EMP WHERE SAL NOT BETWEEN 1000 AND 3000;
+```
 
 
 ## IS Operator:
 The IS operator is primarily used to compare values with NULL.
 
-
+```
 -- Example: Selecting employees with NULL job titles
-```SELECT ENAME FROM EMP WHERE JOB IS NULL;```
+SELECT ENAME FROM EMP WHERE JOB IS NULL;
 
 -- Example: Selecting employees with non-NULL salaries
-```SELECT ENAME FROM EMP WHERE SAL IS NOT NULL;```
+SELECT ENAME FROM EMP WHERE SAL IS NOT NULL;
 
 -- Example: Selecting employees with non-NULL job titles
-```SELECT ENAME FROM EMP WHERE JOB IS NOT NULL;```
+SELECT ENAME FROM EMP WHERE JOB IS NOT NULL;
+```
 
 
 ## IS NULL Operator:
 The IS NULL operator checks for NULL values.
 
-
+```
 -- Example: Selecting employees with NULL commissions
-```SELECT ENAME FROM EMP WHERE COMM IS NULL;```
-
+SELECT ENAME FROM EMP WHERE COMM IS NULL;
+```
 # LIKE Operator in SQL 🎯
 
 The LIKE operator in SQL is used to match patterns within text data. It allows the use of '%' and '_' wildcard characters to represent any number of characters and any single character, respectively. WHERE expression LIKE pattern.
 
 ## Examples using the LIKE Operator:
 
-```-- Selecting employees with job titles ending with 'CLERK'
-SELECT ENAME FROM EMP WHERE JOB LIKE '%CLERK';```
+```--- Selecting employees with job titles ending with 'CLERK'
+SELECT ENAME FROM EMP WHERE JOB LIKE '%CLERK';
 
-```-- Selecting employees with job titles containing 'MAN' anywhere
-SELECT ENAME FROM EMP WHERE JOB LIKE '%MAN%';```
+--- Selecting employees with job titles containing 'MAN' anywhere
+SELECT ENAME FROM EMP WHERE JOB LIKE '%MAN%';
 
-```-- Selecting employees with job titles starting with 'MAN' and ending with 'GER'
-SELECT ENAME FROM EMP WHERE JOB LIKE '%MAN%GER';```
+--- Selecting employees with job titles starting with 'MAN' and ending with 'GER'
+SELECT ENAME FROM EMP WHERE JOB LIKE '%MAN%GER';
 
-```-- Selecting employees with job titles starting with 'CLERK'
-SELECT ENAME FROM EMP WHERE JOB LIKE 'CLERK%';```
+-- Selecting employees with job titles starting with 'CLERK'
+SELECT ENAME FROM EMP WHERE JOB LIKE 'CLERK%';
 
-```-- Selecting employees with job titles containing 'CLERK'
-SELECT ENAME FROM EMP WHERE JOB LIKE '%CLERK%';```
+--- Selecting employees with job titles containing 'CLERK'
+SELECT ENAME FROM EMP WHERE JOB LIKE '%CLERK%';
 
-```-- Selecting employees with names starting with any character followed by 'A' and any characters after
-SELECT ENAME FROM EMP WHERE ENAME LIKE '_A%';```
+--- Selecting employees with names starting with any character followed by 'A' and any characters after
+SELECT ENAME FROM EMP WHERE ENAME LIKE '_A%';
 
-```-- Selecting employees with names starting with 'A' followed by any characters
-SELECT ENAME FROM EMP WHERE ENAME LIKE 'A%';```
+--- Selecting employees with names starting with 'A' followed by any characters
+SELECT ENAME FROM EMP WHERE ENAME LIKE 'A%';
 
-```-- Selecting employees with names ending with 'N'
-SELECT ENAME FROM EMP WHERE ENAME LIKE '%N';```
+--- Selecting employees with names ending with 'N'
+SELECT ENAME FROM EMP WHERE ENAME LIKE '%N';
+```
 
 ## Using the NOT LIKE Operator:
 The NOT LIKE operator is used to reject values that match the specified pattern.
 
-```-- Selecting employees with job titles not ending with 'CLERK'
+```--- Selecting employees with job titles not ending with 'CLERK'
 SELECT ENAME FROM EMP WHERE JOB NOT LIKE '%CLERK';```
 
 ```-- Selecting employees with job titles not containing 'MAN' anywhere
 SELECT ENAME FROM EMP WHERE JOB NOT LIKE '%MAN%';```
 
 ```-- Selecting employees hired in 1981
-SELECT ENAME, HIREDATE FROM EMP WHERE HIREDATE LIKE '1981%';```
+SELECT ENAME, HIREDATE FROM EMP WHERE HIREDATE LIKE '1981%';
+```
+
 
 The LIKE operator is a powerful tool for pattern matching in SQL queries, allowing for flexible filtering of text data.
 
