@@ -1,7 +1,4 @@
-
-
-
-# SQL DML (Data Manipulation Language) 💼
+# SQL DML (Data Manipulation Language)
 
 DML (Data Manipulation Language) is used to insert, update, or delete records from a table. There are three main statements in DML:
 
@@ -76,7 +73,7 @@ DELETE FROM Pron WHERE PID IN (3, 4, 5, 6);
 DML statements are essential for manipulating data within tables, allowing users to insert, update, or delete records as needed.
 
 
-# Differences between DDL and DML in SQL 🔨💼
+# Differences between DDL and DML in SQL
 
 1. **DDL (Data Definition Language)**:
    - DDL statements are used to define, modify, and manage database objects such as tables, views, indexes, etc.
@@ -99,7 +96,8 @@ DML statements are essential for manipulating data within tables, allowing users
 In summary, DDL statements are used for managing the structure of the database, while DML statements are used for managing the data within the database tables.
 
 
-# TRUNCATE, DROP, and DELETE Commands in SQL 🗑️❌🚫
+
+# TRUNCATE, DROP, and DELETE Commands in SQL
 
 ## TRUNCATE:
 

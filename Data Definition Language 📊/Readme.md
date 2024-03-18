@@ -8,16 +8,19 @@ DDL (Data Definition Language) is a set of SQL commands used to define, modify, 
 
 The CREATE statement is used to create new database objects such as tables, views, indexes, etc.
 
-```Syntax example:
+```
+--Syntax example:
 CREATE TABLE table_name (
     column1 datatype constraints,
     column2 datatype constraints,
     ...
-); ```
+); 
+```
 
 **Example:**
 
-```CREATE TABLE products (
+```
+CREATE TABLE products (
     product_id INT PRIMARY KEY,
     product_name VARCHAR(100) NOT NULL,
     description TEXT,
@@ -28,12 +31,13 @@ CREATE TABLE table_name (
     CONSTRAINT fk_category_id FOREIGN KEY (category_id) REFERENCES categories(category_id),
     CONSTRAINT chk_price CHECK (price >= 0),
     CONSTRAINT chk_stock_quantity CHECK (stock_quantity >= 0)
-);```
+);
+```
 
 
 # SQL ALTER Statement
 
-The ALTER statement is used to modify the structure of existing database objects. It allows you to add, modify, or drop columns, constraints, or other properties of a table without needing to drop and recreate them.
+The ALTER statement is used to modify the structure of existing database objects. It allows you to add, modify, or drop columns, constraints, or other properties of a table without needing to drop and recreate them. 🛠️
 
 ## Syntax
 
@@ -195,4 +199,3 @@ Syntax:
 ```sql
 DESC table_name;
 ```
-
