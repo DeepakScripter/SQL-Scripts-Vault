@@ -1877,7 +1877,7 @@ CREATE TABLE products (
 
 # SQL ALTER Statement
 
-The ALTER statement is used to modify the structure of existing database objects. It allows you to add, modify, or drop columns, constraints, or other properties of a table without needing to drop and recreate them.
+The ALTER statement is used to modify the structure of existing database objects. It allows you to add, modify, or drop columns, constraints, or other properties of a table without needing to drop and recreate them. 🛠️
 
 ## Syntax
 
@@ -2039,6 +2039,7 @@ Syntax:
 ```sql
 DESC table_name;
 ```
+
 
 
 # SQL DML (Data Manipulation Language)
