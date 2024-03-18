@@ -915,8 +915,7 @@ SELECT EMPNO FROM emp WHERE SAL IN (SELECT MAX(SAL) FROM emp WHERE SAL < (SELECT
 SELECT DNAME FROM DEPT WHERE DEPTNO IN (SELECT DEPTNO FROM emp WHERE SAL IN (SELECT MAX(SAL) FROM emp WHERE SAL < (SELECT MAX(SAL) FROM emp)));
 ```
 
-```sql
--- Query to find the department name and location where employees earn the second maximum salary
+```-- Query to find the department name and location where employees earn the second maximum salary
 SELECT DNAME, LOC 
 FROM DEPT 
 WHERE DEPTNO IN (
@@ -936,9 +935,7 @@ WHERE DEPTNO IN (
     )
 );
 ```
-
-```sql
--- Query to find the location and department name where employees earn the second minimum salary
+```-- Query to find the location and department name where employees earn the second minimum salary
 SELECT LOC, DNAME 
 FROM DEPT 
 WHERE DEPTNO IN (
@@ -958,9 +955,7 @@ WHERE DEPTNO IN (
     )
 );
 ```
-
-```sql
--- Query to select the names of employees who are managed by 'SCOTT'
+```-- Query to select the names of employees who are managed by 'SCOTT'
 SELECT ENAME 
 FROM EMP 
 WHERE EMPNO IN (
@@ -969,9 +964,7 @@ WHERE EMPNO IN (
     WHERE ENAME = 'SCOTT'
 );
 ```
-
-```sql
--- Query to select the salary and names of employees who are managed by 'ADAMS'
+```-- Query to select the salary and names of employees who are managed by 'ADAMS'
 SELECT SAL, ENAME 
 FROM EMP 
 WHERE ENAME IN (
@@ -984,9 +977,7 @@ WHERE ENAME IN (
     )
 );
 ```
-
-```sql
--- Query to select the department names where employees managed by 'JONES' belong
+```-- Query to select the department names where employees managed by 'JONES' belong
 SELECT DNAME 
 FROM DEPT 
 WHERE DEPTNO IN (
@@ -1002,39 +993,39 @@ WHERE DEPTNO IN (
 
 # TYPES OF SUB QUERY
 
-🔍 Single-row subqueries return only one row as output. They can be used with comparison operators like "=", "<", ">", etc., as well as with the IN and NOT IN operators. Here's an example of each:
+🔍 **Single-row subqueries** return only one row as output. They can be used with comparison operators like "=", "<", ">", etc., as well as with the IN and NOT IN operators. Here's an example of each:
 
-1️⃣ Using "=" operator:
+1️⃣ **Using "=" operator:**
 
-
-```SELECT name
+```sql
+SELECT name
 FROM animals
 WHERE age = (SELECT MAX(age) FROM animals);
+```
 
+This query selects the names of animals whose age is equal to the maximum age in the animals table.
 
-This query selects the names of animals whose age is equal to the maximum age in the animals table.```
+2️⃣ **Using IN operator:**
 
-2️⃣ Using IN operator:
-
-
-```SELECT name
+```sql
+SELECT name
 FROM animals
 WHERE species IN (SELECT species FROM endangered_species);
+```
 
+This query selects the names of animals whose species are listed in the endangered_species table.
 
-This query selects the names of animals whose species are listed in the endangered_species table.```
+3️⃣ **Using NOT IN operator:**
 
-3️⃣ Using NOT IN operator:
-
-
-```SELECT name
+```sql
+SELECT name
 FROM animals
 WHERE species NOT IN (SELECT species FROM extinct_species);
+```
 
+This query selects the names of animals whose species are not listed in the extinct_species table.
 
-This query selects the names of animals whose species are not listed in the extinct_species table.```
-
-🔄 A multi-row subquery returns more than one row as output. These subqueries often use operators like IN, ANY, or ALL to compare against multiple values. 
+🔄 **A multi-row subquery** returns more than one row as output. These subqueries often use operators like IN, ANY, or ALL to compare against multiple values.
 
 # Subquery Comparison Operators
 
@@ -1062,14 +1053,16 @@ These rules are important to ensure that the subquery behaves correctly in the c
 
 🔄 **Special Operators:**
 - The ALL operator compares a value to every value returned by a subquery. It returns true if the comparison is true for all values returned by the subquery, and false otherwise. 
-    ```- Syntax: 
-    
+
+    - Syntax: 
+    ```sql
     SELECT column_name(s)
     FROM table_name
-    WHERE column_name operator ALL (SELECT column_name FROM table_name WHERE condition);```
-
+    WHERE column_name operator ALL (SELECT column_name FROM table_name WHERE condition);
+    ```
 
 - The ANY operator compares a value to each value returned by a subquery. It returns true if the comparison is true for at least one value returned by the subquery, and false otherwise. 
+
     - Syntax: 
     ```sql
     SELECT column_name(s)
@@ -1079,11 +1072,15 @@ These rules are important to ensure that the subquery behaves correctly in the c
 
 ℹ️ Examples:
 
-```-- Selecting employees whose salary is greater than any salesmen's salary
-select ENAME from EMP where SAL > any (SELECT sal FROM emp WHERE job = 'SALESMAN');```
+```sql
+-- Selecting employees whose salary is greater than any salesmen's salary
+select ENAME from EMP where SAL > any (SELECT sal FROM emp WHERE job = 'SALESMAN');
+```
 
-```-- Selecting employees whose salary is greater than all clerks' salary
-select ENAME from EMP where SAL >  ALL (SELECT sal FROM emp WHERE job = 'CLERK');```
+```sql
+-- Selecting employees whose salary is greater than all clerks' salary
+select ENAME from EMP where SAL > ALL (SELECT sal FROM emp WHERE job = 'CLERK');
+```
 
 
 # Joins
@@ -1102,44 +1099,48 @@ Joins in SQL are used to retrieve data from multiple tables based on a related c
 ### 4) Self Join
 ### 5) Natural Join
 
-## 1) Cartesian Join or Cross Join:
+## 1) Cartesian Join or Cross Join
 
-In Cartesian Join, records from Table 1 will be merged with all the records of Table 2.
+In a Cartesian Join, records from Table 1 are combined with all the records of Table 2.
 
 - The number of columns in the result table will be the sum of the columns present in Table 1 and Table 2.
-- The number of records in the result table will be the product of records present in Table 1 and Table 2.
+- The number of records in the result table will be the product of the number of records present in Table 1 and Table 2.
 
 In this join, we may encounter duplicate records.
-(However, it's recommended to avoid Cartesian joins as they can result in large result sets.)
+However, it's recommended to avoid Cartesian joins as they can result in large result sets.
 
-### Example:
+### Syntax:
 
-
-```-- ANSI SQL Syntax:
+```sql
+-- ANSI SQL Syntax:
 SELECT *
 FROM table1
-CROSS JOIN table2;```
+CROSS JOIN table2;
+```
 
-```-- Oracle SQL Syntax:
+```sql
+-- Oracle SQL Syntax:
 SELECT *
-FROM table1, table2;```
+FROM table1, table2;
+```
 
 ### Example Usage:
 
-```-- Performing a Cartesian Join between EMP and DEPT tables
-select * from emp cross join dept;```
+```sql
+-- Performing a Cartesian Join between EMP and DEPT tables
+SELECT * FROM emp CROSS JOIN dept;
+```
 
-
-
-```-- Performing a Cartesian Join between EMP and DEPT tables (Alternative syntax)
-select * from emp, dept;```
-
+```sql
+-- Performing a Cartesian Join between EMP and DEPT tables (Alternative syntax)
+SELECT * FROM emp, dept;
+```
 
 💡 **Note:**
 While Cartesian joins can be useful in certain scenarios, they often lead to unintended consequences, such as large result sets and performance issues. It's crucial to use them judiciously and consider alternative join types where possible.
 
 
-# 🔗Inner Join
+# 🔗 Inner Join
 
 An Inner Join is used to retrieve only the matched records from multiple tables, meaning the records which have corresponding matches in both tables.
 
@@ -1151,55 +1152,62 @@ The syntax for performing an INNER JOIN in SQL is quite similar between ANSI SQL
 
 ### ANSI SQL Syntax:
 
-``` SELECT *
+```sql
+SELECT *
 FROM table1
-INNER JOIN table2 ON table1.column_name = table2.column_name;```
-
+INNER JOIN table2 ON table1.column_name = table2.column_name;
+```
 
 ### Oracle SQL Syntax:
 
-
-```SELECT *
+```sql
+SELECT *
 FROM table1
-JOIN table2 ON table1.column_name = table2.column_name;```
-
+JOIN table2 ON table1.column_name = table2.column_name;
+```
 
 ### Example Usage:
 
-
-```-- Retrieving matched records between EMP and DEPT tables based on department number
+```sql
+-- Retrieving matched records between EMP and DEPT tables based on department number
 SELECT *
 FROM emp
-INNER JOIN dept ON emp.deptno = dept.deptno;```
+INNER JOIN dept ON emp.deptno = dept.deptno;
+```
 
 ## Example Queries:
 
-
-```-- Example 1: Retrieving department name and employee number for employees located in New York with employee numbers 7839 and 7902
+```sql
+-- Example 1: Retrieving department name and employee number for employees located in New York with employee numbers 7839 and 7902
 SELECT DNAME, EMPNO 
-FROM EMP, DEPT 
-WHERE EMPNO IN (7839, 7902) 
-AND LOC = 'NEW YORK' 
-AND EMP.DEPTNO = DEPT.DEPTNO;```
+FROM EMP
+INNER JOIN DEPT ON EMP.DEPTNO = DEPT.DEPTNO
+WHERE LOC = 'NEW YORK' 
+AND EMPNO IN (7839, 7902);
+```
 
-```-- Example 2: Retrieving employee name and department name for departments with department numbers 10 and 30
+```sql
+-- Example 2: Retrieving employee name and department name for departments with department numbers 10 and 30
 SELECT ENAME, DNAME 
-FROM EMP, DEPT 
-WHERE deptno IN (10, 30) 
-AND EMP.deptno = DEPT.deptno;```
+FROM EMP
+INNER JOIN DEPT ON EMP.DEPTNO = DEPT.DEPTNO
+WHERE DEPTNO IN (10, 30);
+```
 
-```-- Example 3: Retrieving employee name and department name for employees with null commission located in departments with department numbers 10 and 30
+```sql
+-- Example 3: Retrieving employee name and department name for employees with null commission located in departments with department numbers 10 and 30
 SELECT ENAME, DNAME 
-FROM EMP, DEPT 
-WHERE emp.deptno = dept.deptno 
-AND ENAME IN  (SELECT ENAME FROM EMP WHERE COMM IS NULL AND DEPTNO IN (10, 30));```
-
+FROM EMP
+INNER JOIN DEPT ON EMP.DEPTNO = DEPT.DEPTNO
+WHERE COMM IS NULL
+AND DEPT.DEPTNO IN (10, 30);
+```
 
 💡 **Tip:**
 Always ensure that the join condition used in an Inner Join is appropriately defined to retrieve the desired matched records.
 
 
-# 🔗Outer Join
+# 🔗 Outer Join
 
 In an outer join, we retrieve both the matched records and any unmatched records from the tables involved in the join. There are different types of outer joins:
 
@@ -1211,53 +1219,63 @@ In an outer join, we retrieve both the matched records and any unmatched records
 
 ### LEFT OUTER JOIN:
 
-```SELECT *
+```sql
+SELECT *
 FROM table1
 LEFT OUTER JOIN table2 ON table1.column_name = table2.column_name;
---This query retrieves all records from table1 and matching records from table2 based on the specified join condition. It also includes any unmatched records from table1.```
+```
+This query retrieves all records from table1 and matching records from table2 based on the specified join condition. It also includes any unmatched records from table1.
 
 ### RIGHT OUTER JOIN:
 
-```SELECT *
+```sql
+SELECT *
 FROM table1
--- RIGHT OUTER JOIN table2 ON table1.column_name = table2.column_name;
-This query retrieves all records from table2 and matching records from table1 based on the specified join condition. It also includes any unmatched records from table2.```
+RIGHT OUTER JOIN table2 ON table1.column_name = table2.column_name;
+```
+This query retrieves all records from table2 and matching records from table1 based on the specified join condition. It also includes any unmatched records from table2.
 
 ### FULL OUTER JOIN:
 
-```SELECT *
+```sql
+SELECT *
 FROM table1
 FULL OUTER JOIN table2 ON table1.column_name = table2.column_name;
--- This query retrieves all records when there is a match in either table1 or table2. If there's no match, NULL values are used for the missing side.```
+```
+This query retrieves all records when there is a match in either table1 or table2. If there's no match, NULL values are used for the missing side.
 
 ## Oracle SQL Syntax:
 
 ### LEFT OUTER JOIN:
 
-```SELECT *
+```sql
+SELECT *
 FROM table1, table2
 WHERE table1.column_name(+) = table2.column_name;
--- This query performs a left outer join in Oracle SQL, where records from table1 are included even if they don't have matching records in table2.```
+```
+This query performs a left outer join in Oracle SQL, where records from table1 are included even if they don't have matching records in table2.
 
 ### RIGHT OUTER JOIN:
 
-```SELECT *
+```sql
+SELECT *
 FROM table1, table2
 WHERE table1.column_name = table2.column_name(+);
--- This query performs a right outer join in Oracle SQL, where records from table2 are included even if they don't have matching records in table1.```
+```
+This query performs a right outer join in Oracle SQL, where records from table2 are included even if they don't have matching records in table1.
 
 ### FULL OUTER JOIN:
 
-```SELECT *
+```sql
+SELECT *
 FROM table1 FULL JOIN table2 ON table1.column_name = table2.column_name;
--- This query performs a full outer join in Oracle SQL, retrieving all records from both tables regardless of matches.```
+```
+This query performs a full outer join in Oracle SQL, retrieving all records from both tables regardless of matches.
 
 In these queries:
 - `table1` and `table2` are the tables you want to join.
 - `column_name` is the column in each table that you want to use as the join condition. This column should be common between both tables.
 - The `(+)` symbol in Oracle SQL denotes a left outer join, where records from the table on the left side are included even if they don't have matching records in the right table.
-
-
 
 # Self Join
 
@@ -1266,41 +1284,48 @@ A self join is used to join the same table to itself. It's employed when the dat
 
 ## ANSI SQL Syntax:
 
-```SELECT t1.column1, t2.column2
+```sql
+SELECT t1.column1, t2.column2
 FROM table_name t1
-JOIN table_name t2 ON t1.related_column = t2.related_column;```
+JOIN table_name t2 ON t1.related_column = t2.related_column;
+```
 
 ## Oracle SQL Syntax:
 
-```SELECT t1.column1, t2.column2
+```sql
+SELECT t1.column1, t2.column2
 FROM table_name t1, table_name t2
-WHERE t1.related_column = t2.related_column;```
+WHERE t1.related_column = t2.related_column;
+```
 
 ### Example Queries:
 
 
-```-- Query 1: Select employee names and salaries for employees whose managers' and their own salaries are both greater than 2300.
-
+```sql
+-- Query 1: Select employee names and salaries for employees whose managers' and their own salaries are both greater than 2300.
 SELECT E1.ENAME, E2.SAL 
 FROM EMP E1, EMP E2 
 WHERE E1.MGR = E2.EMPNO  
 AND E1.SAL > 2300 
-AND E2.SAL > 2300;```
+AND E2.SAL > 2300;
+```
 
-```-- Query 2: Select names of employees and their managers hired before January 1, 1982.
-
+```sql
+-- Query 2: Select names of employees and their managers hired before January 1, 1982.
 SELECT E1.ENAME, E2.ENAME 
 FROM EMP E1, EMP E2 
 WHERE E1.MGR = E2.EMPNO  
-AND E1.HIREDATE < '1982-01-01'; ```
+AND E1.HIREDATE < '1982-01-01';
+```
 
-```-- Query 3: Select names of employees and their commissions for salesmen in department 30.
-
+```sql
+-- Query 3: Select names of employees and their commissions for salesmen in department 30.
 SELECT E1.ENAME, E2.COMM 
 FROM EMP E1, EMP E2 
 WHERE E1.MGR = E2.EMPNO 
 AND E1.JOB = 'SALESMAN' 
-AND E2.DEPTNO = '30';```
+AND E2.DEPTNO = '30';
+```
 
 In these queries:
 - `EMP` is the table being self-joined.
@@ -1314,23 +1339,28 @@ When using INNER JOIN to join N number of tables, we need N minus one join condi
 ## Example Queries:
 
 
-```-- Query 1: Select employee names, their managers' names, and department names.
+```sql
+-- Query 1: Select employee names, their managers' names, and department names.
 SELECT E1.ENAME, E2.ENAME, D1.DNAME, D2.DNAME 
 FROM EMP E1, EMP E2, DEPT D1, DEPT D2 
 WHERE E1.MGR = E2.EMPNO 
 AND E1.DEPTNO = D1.DEPTNO 
-AND E2.DEPTNO = D2.DEPTNO;```
+AND E2.DEPTNO = D2.DEPTNO;
+```
 
-```-- Query 2: Select employee names, their managers' names, and department names where employee salary is greater than 2000 and department number is 20.
+```sql
+-- Query 2: Select employee names, their managers' names, and department names where employee salary is greater than 2000 and department number is 20.
 SELECT E1.ENAME, E2.ENAME, D1.DNAME, D2.DNAME 
 FROM EMP E1, EMP E2, DEPT D1, DEPT D2 
 WHERE E1.MGR = E2.EMPNO 
 AND E1.DEPTNO = D1.DEPTNO 
 AND E2.DEPTNO = D2.DEPTNO 
 AND E1.SAL > 2000 
-AND E2.DEPTNO = 20;```
+AND E2.DEPTNO = 20;
+```
 
-```-- Query 3: Select employee names, their department locations, manager names, and manager department locations for employees in departments 10 or 30, whose salary is greater than that of employee 'FROD', and department location is either 'NEWYORK' or 'CHICAGO'.
+```sql
+-- Query 3: Select employee names, their department locations, manager names, and manager department locations for employees in departments 10 or 30, whose salary is greater than that of employee 'FROD', and department location is either 'NEWYORK' or 'CHICAGO'.
 SELECT E1.ENAME, D1.LOC, E2.ENAME, D2.LOC 
 FROM EMP E1, EMP E2, DEPT D1, DEPT D2 
 WHERE E1.MGR = E2.EMPNO 
@@ -1338,34 +1368,41 @@ AND E1.DEPTNO = D1.DEPTNO
 AND E2.DEPTNO = D2.DEPTNO 
 AND E1.DEPTNO IN (10, 30) 
 AND E2.SAL > (SELECT SAL FROM EMP WHERE ENAME = 'FROD') 
-AND D1.LOC IN ('NEWYORK', 'CHICAGO');```
+AND D1.LOC IN ('NEWYORK', 'CHICAGO');
+```
 
-```-- Query 4: Select employee names, their manager names, and department locations for employees hired before September 28, 1981, in departments 10 or 40, whose salary is greater than that of employee 'SMITH'.
+```sql
+-- Query 4: Select employee names, their manager names, and department locations for employees hired before September 28, 1981, in departments 10 or 40, whose salary is greater than that of employee 'SMITH'.
 SELECT E1.ENAME, E2.ENAME, D1.LOC, D2.LOC 
 FROM EMP E1, EMP E2, DEPT D1, DEPT D2 
 WHERE E1.MGR = E2.EMPNO 
 AND E1.HIREDATE < '1981-09-28' 
 AND (E2.DEPTNO = 10 OR E2.DEPTNO = 40) 
-AND E2.SAL > (SELECT SAL FROM EMP WHERE ENAME = 'SMITH');```
+AND E2.SAL > (SELECT SAL FROM EMP WHERE ENAME = 'SMITH');
+```
+
+
 
 # Natural Join 🔗 
 In a natural join, there's no need to write any join condition explicitly. If the tables contain similar columns, the natural join will output the result similar to an inner join. However, if the tables don't have similar columns, the natural join will behave like a Cartesian join.
 
 We use a natural join when we want to join tables based on the columns that are present in their table structures. It simplifies the join process by automatically matching columns with the same names from the tables being joined.
 
-
+## ANSI SQL Syntax:
 ```sql
--- ANSI SQL Syntax:
 -- Query 1: Perform a natural join between table1 and table2.
 SELECT *
 FROM table1
-NATURAL JOIN table2;```
+NATURAL JOIN table2;
+```
 
-```-- Oracle SQL Syntax:
+## Oracle SQL Syntax:
+```sql
 -- Query 2: Perform a natural join between EMP and DEPT tables.
 SELECT *
 FROM EMP
-NATURAL JOIN DEPT;```
+NATURAL JOIN DEPT;
+```
 
 # Single-Row Functions
 
