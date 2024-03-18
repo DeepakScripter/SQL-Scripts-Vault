@@ -62,7 +62,9 @@
 
 -- 🔄 Order of execution 1. From 2. Select
 
-```-- Example query:
+
+```
+-- Example query:
 -- select Ename, sal from emp;```
 
 ## What is an Expression? 🤔
@@ -79,13 +81,15 @@ An expression is a statement that produces a result. It consists of two types: o
 
 ## Example Expression 🚀
 
-```SELECT salary * 1.1 AS increased_salary
+```
+SELECT salary * 1.1 AS increased_salary
 FROM employees
 WHERE department = 'HR';
 
 Example Query with Expression 📊
 SELECT ename, sal*6 AS salary
-FROM emp;```
+FROM emp;
+```
 
 ## Aliases 📝
 
@@ -94,7 +98,8 @@ An alias is an alternative name given to a column or expression in the result ta
 ## Example Queries with Aliases 🚀
 
 
-``` -- Example 1:
+``` 
+-- Example 1:
 -- select ename sal, sal*12 "annual salary" from emp;
 
 -- Example 2:
@@ -106,6 +111,7 @@ An alias is an alternative name given to a column or expression in the result ta
 -- Example 4:
 -- select sal + comm as Total_sal from emp;
 ```
+
 
 ## DISTINCT Clause 🔄
 
