@@ -51,23 +51,19 @@
   - **Join**: Retrieve data from multiple tables simultaneously.
 
 
-  --- 📝 Syntax: SELECT [DISTINCT] column-name/expression [AS alias] FROM table-name
+  --- ```📝 Syntax: SELECT [DISTINCT] column-name/expression [AS alias] FROM table-name```
 
   -- 🔄 Order of execution 1. From 2. Select
 
   -- Example query:
   -- select Ename, sal from emp;
 
--- 📝 Syntax: SELECT [DISTINCT] column-name/expression [AS alias] FROM table-name
+-- 📝 Syntax: ```SELECT [DISTINCT] column-name/expression [AS alias] FROM table-name```
 
 -- 🔄 Order of execution 1. From 2. Select
 
--- Example query:
--- select Ename, sal from emp;
-
-
-
-
+```-- Example query:
+-- select Ename, sal from emp;```
 
 ## What is an Expression? 🤔
 
@@ -83,18 +79,13 @@ An expression is a statement that produces a result. It consists of two types: o
 
 ## Example Expression 🚀
 
-Here's an example expression:
-
-SELECT salary * 1.1 AS increased_salary
+```SELECT salary * 1.1 AS increased_salary
 FROM employees
 WHERE department = 'HR';
 
 Example Query with Expression 📊
 SELECT ename, sal*6 AS salary
-FROM emp;
-
-
-
+FROM emp;```
 
 ## Aliases 📝
 
@@ -102,10 +93,8 @@ An alias is an alternative name given to a column or expression in the result ta
 
 ## Example Queries with Aliases 🚀
 
-Here are some example queries demonstrating the usage of aliases:
 
-```sql
--- Example 1:
+``` -- Example 1:
 -- select ename sal, sal*12 "annual salary" from emp;
 
 -- Example 2:
@@ -126,7 +115,7 @@ The DISTINCT clause is used to remove duplicate or repeated values from the resu
 
 In some cases, if you want to display additional columns along with all the details, you can use the table name followed by a period (.) and the asterisk (*). This will select all the details directly from the database table specified in the FROM clause.
 
-<!-- select sal + comm as Total_sal from emp; -->
+``` select sal + comm as Total_sal from emp; ```
 
 ## Handling Null Values 🚫
 
@@ -135,10 +124,6 @@ Null values represent the absence of a value. If any operation is performed with
 ## Note 📌
 
 The above questions can be solved using the concept of null values.
-
-
-
-
 
 ## Query Execution Process ⚙️
 
@@ -150,7 +135,7 @@ The WHERE clause is used to filter records based on specified conditions. It exe
 
 ### Example Queries with WHERE Clause:
 
-```sql
+```
 -- Example 1:
 -- select * from emp where job = 'CLERK' and sal < 1500;
 
@@ -181,27 +166,12 @@ In Oracle SQL, two commonly used date formats are:
 -- select ENAME, HIREDATE from EMP where HIREDATE > '1981-01-01'; 
 ```
 
-**Note:** These formats are often used in SQL queries to handle date data.
+**Note:📌** These formats are often used in SQL queries to handle date data.
 
 ## Note 📌
 
 It is not possible to reference aliases defined in the SELECT clause within the WHERE clause because the SELECT clause executes after the WHERE clause. Therefore, aliases are not available for use in filtering conditions within the WHERE clause.
 
-
-
-
-
-
-
-
-
-
-Here's the updated README file with the provided content:
-
-```markdown
-Here's the README file with the additional content about Relational and Subquery Operators:
-
-```markdown
 # SQL Operators Cheatsheet 📝
 
 SQL operators are foundational elements of the language, essential for manipulating data within a database. 
@@ -217,7 +187,7 @@ Arithmetic operators facilitate mathematical operations on numeric data types. C
 - `%` (Modulus): Returns the remainder of a division operation.
 
 Example:
-```sql
+```
 -- SELECT 10 + 5 AS Addition,
 --        10 - 5 AS Subtraction,
 --        10 * 5 AS Multiplication,
@@ -266,7 +236,7 @@ Special operators provide additional functionalities for specific tasks:
 - `UNIQUE`
 
 Example:
-```sql
+```
 -- SELECT * FROM orders WHERE amount BETWEEN 100 AND 500;
 ```
 
@@ -279,7 +249,7 @@ The string concatenation operator combines strings into a single string. It vari
 - SQL Server (alternative): `+`
 
 Example:
-```sql
+```
 -- SELECT first_name || ' ' || last_name AS full_name FROM employees;
 ```
 
@@ -311,8 +281,6 @@ Subquery operators are used to perform queries within queries. They include:
 
 Subqueries are powerful tools for performing complex data retrieval and manipulation tasks in SQL.
 
-
-```
 # Logical Operators in SQL 💡
 
 Logical operators are fundamental in SQL queries for combining conditions and evaluating expressions.
@@ -329,8 +297,7 @@ The "NOT" operator is used for negation, representing the inverse of a condition
 
 Note: We can use both the AND and OR operators together in a WHERE clause. When using the OR operator, it's recommended to enclose its conditions within parentheses for clarity and to ensure proper evaluation.
 
-```markdown
-# README: Understanding SQL Operators 🛠️
+# SQL Operators 🛠️
 
 SQL operators are essential components for manipulating and filtering data within databases. Let's explore some common operators and their usage:
 
@@ -377,20 +344,16 @@ SELECT * FROM EMP WHERE JOB NOT IN ('CLERK', 'MANAGER');
 
 ### Additional Example Query:
 
--- Selecting employees with salary between 1250 and 3000
-SELECT ENAME, SAL FROM EMP WHERE SAL > 1250 AND SAL < 3000;
-
-
-
+```-- Selecting employees with salary between 1250 and 3000
+--SELECT ENAME, SAL FROM EMP WHERE SAL > 1250 AND SAL < 3000;```
 
 In addition to the commonly used operators, SQL provides several other operators for specific tasks. Let's explore them:
 
 ## BETWEEN Operator:
 The BETWEEN operator is used to define a range within which the operator works. The ranges cannot overlap within an interval.
 
-
 -- Example: Selecting employees with salaries between 1000 and 3000
-SELECT * FROM EMP WHERE SAL BETWEEN 1000 AND 3000;
+```SELECT * FROM EMP WHERE SAL BETWEEN 1000 AND 3000;```
 
 -- Example: Selecting employees hired between January 1, 1981, and December 31, 1981
 SELECT ENAME, HIREDATE FROM EMP WHERE HIREDATE BETWEEN '1981-01-01' AND '1981-12-31';
@@ -401,7 +364,7 @@ The NOT BETWEEN operator is similar to BETWEEN but rejects the values instead of
 
 
 -- Example: Selecting employees with salaries outside the range of 1000 to 3000
-SELECT * FROM EMP WHERE SAL NOT BETWEEN 1000 AND 3000;
+```SELECT * FROM EMP WHERE SAL NOT BETWEEN 1000 AND 3000;```
 
 
 ## IS Operator:
@@ -409,13 +372,13 @@ The IS operator is primarily used to compare values with NULL.
 
 
 -- Example: Selecting employees with NULL job titles
-SELECT ENAME FROM EMP WHERE JOB IS NULL;
+```SELECT ENAME FROM EMP WHERE JOB IS NULL;```
 
 -- Example: Selecting employees with non-NULL salaries
-SELECT ENAME FROM EMP WHERE SAL IS NOT NULL;
+```SELECT ENAME FROM EMP WHERE SAL IS NOT NULL;```
 
 -- Example: Selecting employees with non-NULL job titles
-SELECT ENAME FROM EMP WHERE JOB IS NOT NULL;
+```SELECT ENAME FROM EMP WHERE JOB IS NOT NULL;```
 
 
 ## IS NULL Operator:
@@ -423,61 +386,49 @@ The IS NULL operator checks for NULL values.
 
 
 -- Example: Selecting employees with NULL commissions
-SELECT ENAME FROM EMP WHERE COMM IS NULL;
-
-
+```SELECT ENAME FROM EMP WHERE COMM IS NULL;```
 
 # LIKE Operator in SQL 🎯
 
-The LIKE operator in SQL is used to match patterns within text data. It allows the use of '%' and '_' wildcard characters to represent any number of characters and any single character, respectively.
-
-
-
-WHERE expression LIKE pattern
-
+The LIKE operator in SQL is used to match patterns within text data. It allows the use of '%' and '_' wildcard characters to represent any number of characters and any single character, respectively. WHERE expression LIKE pattern.
 
 ## Examples using the LIKE Operator:
-Let's look at some examples of using the LIKE operator:
 
+```-- Selecting employees with job titles ending with 'CLERK'
+SELECT ENAME FROM EMP WHERE JOB LIKE '%CLERK';```
 
--- Selecting employees with job titles ending with 'CLERK'
-SELECT ENAME FROM EMP WHERE JOB LIKE '%CLERK';
+```-- Selecting employees with job titles containing 'MAN' anywhere
+SELECT ENAME FROM EMP WHERE JOB LIKE '%MAN%';```
 
--- Selecting employees with job titles containing 'MAN' anywhere
-SELECT ENAME FROM EMP WHERE JOB LIKE '%MAN%';
+```-- Selecting employees with job titles starting with 'MAN' and ending with 'GER'
+SELECT ENAME FROM EMP WHERE JOB LIKE '%MAN%GER';```
 
--- Selecting employees with job titles starting with 'MAN' and ending with 'GER'
-SELECT ENAME FROM EMP WHERE JOB LIKE '%MAN%GER';
+```-- Selecting employees with job titles starting with 'CLERK'
+SELECT ENAME FROM EMP WHERE JOB LIKE 'CLERK%';```
 
--- Selecting employees with job titles starting with 'CLERK'
-SELECT ENAME FROM EMP WHERE JOB LIKE 'CLERK%';
+```-- Selecting employees with job titles containing 'CLERK'
+SELECT ENAME FROM EMP WHERE JOB LIKE '%CLERK%';```
 
--- Selecting employees with job titles containing 'CLERK'
-SELECT ENAME FROM EMP WHERE JOB LIKE '%CLERK%';
+```-- Selecting employees with names starting with any character followed by 'A' and any characters after
+SELECT ENAME FROM EMP WHERE ENAME LIKE '_A%';```
 
--- Selecting employees with names starting with any character followed by 'A' and any characters after
-SELECT ENAME FROM EMP WHERE ENAME LIKE '_A%';
+```-- Selecting employees with names starting with 'A' followed by any characters
+SELECT ENAME FROM EMP WHERE ENAME LIKE 'A%';```
 
--- Selecting employees with names starting with 'A' followed by any characters
-SELECT ENAME FROM EMP WHERE ENAME LIKE 'A%';
-
--- Selecting employees with names ending with 'N'
-SELECT ENAME FROM EMP WHERE ENAME LIKE '%N';
-
+```-- Selecting employees with names ending with 'N'
+SELECT ENAME FROM EMP WHERE ENAME LIKE '%N';```
 
 ## Using the NOT LIKE Operator:
 The NOT LIKE operator is used to reject values that match the specified pattern.
 
+```-- Selecting employees with job titles not ending with 'CLERK'
+SELECT ENAME FROM EMP WHERE JOB NOT LIKE '%CLERK';```
 
--- Selecting employees with job titles not ending with 'CLERK'
-SELECT ENAME FROM EMP WHERE JOB NOT LIKE '%CLERK';
+```-- Selecting employees with job titles not containing 'MAN' anywhere
+SELECT ENAME FROM EMP WHERE JOB NOT LIKE '%MAN%';```
 
--- Selecting employees with job titles not containing 'MAN' anywhere
-SELECT ENAME FROM EMP WHERE JOB NOT LIKE '%MAN%';
-
--- Selecting employees hired in 1981
-SELECT ENAME, HIREDATE FROM EMP WHERE HIREDATE LIKE '1981%';
-
+```-- Selecting employees hired in 1981
+SELECT ENAME, HIREDATE FROM EMP WHERE HIREDATE LIKE '1981%';```
 
 The LIKE operator is a powerful tool for pattern matching in SQL queries, allowing for flexible filtering of text data.
 
@@ -515,7 +466,6 @@ Single-row functions operate on each row of data independently and return a sing
 ## Note:
 Single-row functions execute on one input at a time, generating one output for each input. They process each input independently, returning the same number of outputs as the number of inputs.
 
-
 # Multi-Row Functions in SQL 📊
 
 Multi-row functions, also known as aggregate functions, are essential tools in SQL for summarizing and analyzing data across multiple rows. This README provides an overview of multi-row functions, their usage, and important considerations.
@@ -543,50 +493,45 @@ Analytic functions operate on a group of rows and return a result for each row b
 
 ```sql
 -- Find the maximum salary in the EMP table
-SELECT MAX(SAL) FROM EMP;
+SELECT MAX(SAL) FROM EMP;```
 
--- Calculate the total salary sum in the EMP table
-SELECT SUM(SAL) FROM EMP;
+```-- Calculate the total salary sum in the EMP table
+SELECT SUM(SAL) FROM EMP;```
 
--- Calculate the average salary in the EMP table
-SELECT AVG(SAL) FROM EMP;
+```-- Calculate the average salary in the EMP table
+SELECT AVG(SAL) FROM EMP;```
 
--- Count the number of rows with non-null salary values in the EMP table
-SELECT COUNT(SAL) FROM EMP;
+```-- Count the number of rows with non-null salary values in the EMP table
+SELECT COUNT(SAL) FROM EMP;```
 
--- Count the total number of rows in the EMP table
-SELECT COUNT(*) FROM EMP;
+```-- Count the total number of rows in the EMP table
+SELECT COUNT(*) FROM EMP;```
 
--- Count the number of distinct department numbers in the EMP table
-SELECT COUNT(DISTINCT DEPTNO) FROM EMP;
+```-- Count the number of distinct department numbers in the EMP table
+SELECT COUNT(DISTINCT DEPTNO) FROM EMP;```
 
--- Find the maximum salary in the EMP table for department number 20
-SELECT MAX(SAL) FROM EMP WHERE DEPTNO = '20';
+```-- Find the maximum salary in the EMP table for department number 20
+SELECT MAX(SAL) FROM EMP WHERE DEPTNO = '20';```
 
--- Count the number of rows with salary greater than 2000 and department number 20
-SELECT COUNT(*) FROM EMP WHERE SAL > 2000 AND DEPTNO = '20';
+```-- Count the number of rows with salary greater than 2000 and department number 20
+SELECT COUNT(*) FROM EMP WHERE SAL > 2000 AND DEPTNO = '20';```
 
--- Calculate the total salary sum for employees with the job title 'MANAGER'
-SELECT SUM(SAL) FROM EMP WHERE JOB = 'MANAGER';
+```-- Calculate the total salary sum for employees with the job title 'MANAGER'
+SELECT SUM(SAL) FROM EMP WHERE JOB = 'MANAGER';```
 
--- Count the number of rows with non-null commission and department number 20
-SELECT COUNT(*) FROM EMP WHERE COMM IS NOT NULL AND DEPTNO = '20';
+```-- Count the number of rows with non-null commission and department number 20
+SELECT COUNT(*) FROM EMP WHERE COMM IS NOT NULL AND DEPTNO = '20';```
 
--- Calculate the average salary, total salary sum, count of distinct department numbers, and maximum salary in the EMP table
-SELECT AVG(SAL), SUM(SAL), COUNT(DISTINCT DEPTNO), MAX(SAL) FROM EMP;
+```-- Calculate the average salary, total salary sum, count of distinct department numbers, and maximum salary in the EMP table
+SELECT AVG(SAL), SUM(SAL), COUNT(DISTINCT DEPTNO), MAX(SAL) FROM EMP;```
 
--- Calculate the average salary, total salary sum, count of distinct department numbers, and maximum salary in the EMP table for department number 20
-SELECT AVG(SAL), SUM(SAL), COUNT(DISTINCT DEPTNO), MAX(SAL) FROM EMP WHERE DEPTNO = '20';
+```-- Calculate the average salary, total salary sum, count of distinct department numbers, and maximum salary in the EMP table for department number 20
+SELECT AVG(SAL), SUM(SAL), COUNT(DISTINCT DEPTNO), MAX(SAL) FROM EMP WHERE DEPTNO = '20';```
 
--- Calculate the average salary, total salary sum, count of distinct department numbers, and maximum salary in the EMP table for employees whose name contains 'A' and belong to department number 20
+```-- Calculate the average salary, total salary sum, count of distinct department numbers, and maximum salary in the EMP table for employees whose name contains 'A' and belong to department number 20
 SELECT AVG(SAL), SUM(SAL), COUNT(DISTINCT DEPTNO), MAX(SAL) 
 FROM EMP 
-WHERE ENAME LIKE '%A%' AND DEPTNO = '20';
-
-
-
-
-
+WHERE ENAME LIKE '%A%' AND DEPTNO = '20';```
 
 # SQL Group By Operations
 
@@ -657,21 +602,12 @@ Typically, the order of execution in SQL queries is structured as follows:
    ```sql
    SELECT COUNT(*), DEPTNO FROM EMP GROUP BY DEPTNO HAVING COUNT(*) >= 2;
    ```
-```
-
 
 # HAVING Clause in SQL 📊
 
-The "HAVING" clause is utilized to filter the groups created by the "GROUP BY" clause.
-
-We can include multi-row function conditions in the "HAVING" clause.
-
-It operates group by group.
-
+The "HAVING" clause is utilized to filter the groups created by the "GROUP BY" clause.We can include multi-row function conditions in the "HAVING" clause. It operates group by group.
 If you are using the "HAVING" clause after the "GROUP BY" clause, it should be used accordingly; it cannot be used without the "GROUP BY" clause.
-
 The syntax for using the "HAVING" clause is demonstrated as follows:
-
 ```sql
 SELECT group_by_expression/group_function FROM table_name WHERE <filter_condition> GROUP BY column_name/expression HAVING <group_filter_condition>;
 ```
@@ -693,7 +629,6 @@ WHERE JOB = 'CLERK'
 GROUP BY DEPTNO 
 HAVING COUNT(*) >= 2;
 ```
-
 This query will return the department numbers and the count of employees for departments where there are at least 2 clerks.
 
 ## Additional Example
@@ -729,7 +664,7 @@ We can pass multiple conditions in a HAVING clause by using logical operators.
 - Multiple conditions can be passed in the HAVING clause using logical operators.
 ```
 
-
+This query would return salaries that appear more than once in the `EMP` table:-
 
 ```sql
 -- SELECT SAL 
@@ -737,8 +672,6 @@ We can pass multiple conditions in a HAVING clause by using logical operators.
 -- GROUP BY SAL 
 -- HAVING COUNT(*) > 1;
 ```
-This query would return salaries that appear more than once in the `EMP` table.
-
 
 # Sub-Query in SQL 🔄
 
@@ -759,58 +692,52 @@ This query would return salaries that appear more than once in the `EMP` table.
 - We use a sub-query when we need to utilize unknown or dynamic values in our query.
 
 ### Example Sub-Query:
-
-
+```
 SELECT ename, job
 FROM emp
 WHERE deptno IN (SELECT deptno
                  FROM emp
                  WHERE job = 'CLERK'
                  GROUP BY deptno
-                 HAVING COUNT(*) >= 2);
-
+                 HAVING COUNT(*) >= 2);```
 
 This query retrieves the names (`ename`) and job titles (`job`) of employees from the `emp` table where the department number (`deptno`) is in the set of department numbers where there are at least two clerks.
 
 ### More Examples:
 
-
--- Retrieve employees with a salary higher than Adams
+```-- Retrieve employees with a salary higher than Adams
 SELECT ENAME, SAL 
 FROM EMP 
-WHERE SAL > (SELECT SAL FROM EMP WHERE ENAME = 'ADAMS');
+WHERE SAL > (SELECT SAL FROM EMP WHERE ENAME = 'ADAMS');```
 
--- Retrieve employees with a salary higher than Miller and lower than Allen
+```-- Retrieve employees with a salary higher than Miller and lower than Allen
 SELECT ENAME, SAL 
 FROM EMP 
 WHERE SAL > (SELECT SAL FROM EMP where ENAME = 'MILLER') 
-AND SAL < (SELECT SAL FROM EMP where ENAME = 'ALLEN');
+AND SAL < (SELECT SAL FROM EMP where ENAME = 'ALLEN');```
 
--- Count employees hired after King
+```-- Count employees hired after King
 SELECT COUNT(*) 
 FROM EMP 
-WHERE HIREDATE > (SELECT HIREDATE FROM EMP where ENAME = 'KING');
+WHERE HIREDATE > (SELECT HIREDATE FROM EMP where ENAME = 'KING');```
 
--- Retrieve employees with the same department number as Turner, who is a clerk
+```-- Retrieve employees with the same department number as Turner, who is a clerk
 SELECT * 
 FROM EMP 
 WHERE JOB = 'CLERK' 
-AND DEPTNO = (SELECT DEPTNO FROM EMP where ENAME = 'TURNER');
+AND DEPTNO = (SELECT DEPTNO FROM EMP where ENAME = 'TURNER');```
 
--- Retrieve employees with a salary 12 times less than King but greater than Smith
+```-- Retrieve employees with a salary 12 times less than King but greater than Smith
 SELECT ENAME, SAL, JOB 
 FROM EMP 
 WHERE SAL*12 < (SELECT SAL*12 FROM EMP where ENAME = 'KING') 
-AND SAL*12 > (SELECT SAL*12 FROM EMP where ENAME = 'SMITH');
-
-
+AND SAL*12 > (SELECT SAL*12 FROM EMP where ENAME = 'SMITH');```
 
 # Subqueries in SQL 🔄
 
 In SQL, when data needs to be selected from one table based on a condition that involves data from another table, a subquery can be used. This scenario arises when the condition to filter data exists in a different table than the one from which data needs to be selected.
 
 Here's how a subquery can be used to achieve this:
-
 ```
 SELECT column1, column2, ...
 FROM table1
@@ -818,28 +745,25 @@ WHERE condition_column IN (SELECT columnX FROM table2 WHERE condition);
 ```
 
 ## Example Queries:
-
-```
--- Query: Retrieve department names where employee 'SCOTT' works
+``` -- Query: Retrieve department names where employee 'SCOTT' works
 select DNAME 
 FROM DEPT 
 WHERE DEPTNO IN(select DEPTNO
    FROM EMP
    where ENAME = 'SCOTT');
-```
+
 
 
 -- Query: Retrieve employee names and salaries for departments located in 'CHICAGO'
-select ENAME, SAL FROM EMP where DEPTNO IN (select DEPTNO from dept where LOC = 'CHICAGO');
+select ENAME, SAL FROM EMP where DEPTNO IN (select DEPTNO from dept where LOC = 'CHICAGO');```
 
 
-```
--- Query: Retrieve employee names where salary is greater than 'SCOTT' and department is 'ACCOUNTING'
+``` -- Query: Retrieve employee names where salary is greater than 'SCOTT' and department is 'ACCOUNTING'
 select ENAME FROM EMP WHERE SAL > (select SAL from emp where ENAME = 'SCOTT') AND DEPTNO IN (select DEPTNO from dept where DNAME = 'ACCOUNTING');
 ```
 
-```
--- Query: Retrieve employee names and salaries where salary is greater than 'SCOTT' and department is 'RESEARCH'
+
+```-- Query: Retrieve employee names and salaries where salary is greater than 'SCOTT' and department is 'RESEARCH'
 select ENAME, SAL from emp where sal > (select sal from emp where ename = 'SCOTT') and deptno in (select deptno from dept where dname = 'RESEARCH')
 ```
 
@@ -852,54 +776,52 @@ SELECT LOC FROM DEPT WHERE DEPTNO IN (SELECT DEPTNO FROM EMP WHERE COMM IS not n
 
 ```
 -- Query: Retrieve the maximum salary from the employee table
-select MAX(SAL) from emp ;
+select MAX(SAL) from emp ;```
 
--- Query: Retrieve the minimum salary from the employee table
-select MIN(SAL) from emp;
+```-- Query: Retrieve the minimum salary from the employee table
+select MIN(SAL) from emp;```
 
--- Query: Retrieve employee names with the maximum salary
-select ENAME from emp where SAL IN (select MAX(SAL) from emp);
+```-- Query: Retrieve employee names with the maximum salary
+select ENAME from emp where SAL IN (select MAX(SAL) from emp);```
 
--- Query: Retrieve employee names with the minimum salary
-select ENAME from emp where SAL IN (select MIN(SAL) from emp)
+```-- Query: Retrieve employee names with the minimum salary
+select ENAME from emp where SAL IN (select MIN(SAL) from emp)```
 
--- Query: Retrieve employee names with the latest hire date
-select ENAME from emp where HIREDATE IN (select MAX(HIREDATE) from emp)
+```-- Query: Retrieve employee names with the latest hire date
+select ENAME from emp where HIREDATE IN (select MAX(HIREDATE) from emp)```
 
--- Query: Retrieve employee names with the earliest hire date
-select ENAME from emp where HIREDATE IN (select MIN(HIREDATE) from emp)
+```-- Query: Retrieve employee names with the earliest hire date
+select ENAME from emp where HIREDATE IN (select MIN(HIREDATE) from emp)```
 
--- Query: Retrieve employee names and commissions with the maximum commission
-select ENAME, COMM from emp where COMM IN (select MAX(COMM) from emp);
+```-- Query: Retrieve employee names and commissions with the maximum commission
+select ENAME, COMM from emp where COMM IN (select MAX(COMM) from emp);```
 
--- Query: Retrieve employee names and commissions with the minimum commission
+```-- Query: Retrieve employee names and commissions with the minimum commission
 select ENAME, COMM from emp where COMM IN (select MIN(COMM) from emp);
 ```
 
-
-
--- HOW TO FIND MAX SAL AND MIN SAL IN EMP TABLE
+```-- HOW TO FIND MAX SAL AND MIN SAL IN EMP TABLE
 -- Query to find the maximum salary in the EMP table
-SELECT MAX(SAL) FROM emp;
+SELECT MAX(SAL) FROM emp;```
 
--- Query to find the minimum salary in the EMP table
-SELECT MIN(SAL) FROM emp;
+```-- Query to find the minimum salary in the EMP table
+SELECT MIN(SAL) FROM emp;```
 
--- NOTE: 
--- A nested subquery refers to a query written within another query. When a subquery is placed inside another query, it's called a nested subquery. Most database systems support nesting subqueries, but there might be variations in the maximum allowed depth of nesting across different systems. WE CAN WRRIEN 255 SUB QUERYS.
+- NOTE: 
+- A nested subquery refers to a query written within another query. When a subquery is placed inside another query, it's called a nested subquery. Most database systems support nesting subqueries, but there might be variations in the maximum allowed depth of nesting across different systems. WE CAN WRRIEN 255 SUB QUERYS.
 
--- To find the nth maximum or minimum salary using subqueries while minimizing the number of subqueries to N - 1.
+```-- To find the nth maximum or minimum salary using subqueries while minimizing the number of subqueries to N - 1.
 -- Query to find the second maximum salary
-SELECT ENAME FROM emp WHERE SAL IN (SELECT MAX(SAL) FROM emp WHERE SAL < (SELECT MAX(SAL) FROM emp));
+SELECT ENAME FROM emp WHERE SAL IN (SELECT MAX(SAL) FROM emp WHERE SAL < (SELECT MAX(SAL) FROM emp));```
 
--- Query to find the employee number with the second maximum salary
-SELECT EMPNO FROM emp WHERE SAL IN (SELECT MAX(SAL) FROM emp WHERE SAL < (SELECT MAX(SAL) FROM emp ));
+```-- Query to find the employee number with the second maximum salary
+SELECT EMPNO FROM emp WHERE SAL IN (SELECT MAX(SAL) FROM emp WHERE SAL < (SELECT MAX(SAL) FROM emp ));```
 
--- Query to find the department name where employees earn the second maximum salary
-SELECT DNAME FROM DEPT WHERE DEPTNO IN (SELECT DEPTNO FROM emp WHERE SAL IN (SELECT MAX(SAL) FROM emp WHERE SAL < (SELECT MAX(SAL) FROM emp)));
+```-- Query to find the department name where employees earn the second maximum salary
+SELECT DNAME FROM DEPT WHERE DEPTNO IN (SELECT DEPTNO FROM emp WHERE SAL IN (SELECT MAX(SAL) FROM emp WHERE SAL < (SELECT MAX(SAL) FROM emp)));```
 
 
--- Query to find the department name and location where employees earn the second maximum salary
+```-- Query to find the department name and location where employees earn the second maximum salary
 SELECT DNAME, LOC 
 FROM DEPT 
 WHERE DEPTNO IN (
@@ -918,8 +840,8 @@ WHERE DEPTNO IN (
         )
     )
 );
-
--- Query to find the location and department name where employees earn the second minimum salary
+```
+```-- Query to find the location and department name where employees earn the second minimum salary
 SELECT LOC, DNAME 
 FROM DEPT 
 WHERE DEPTNO IN (
@@ -938,8 +860,8 @@ WHERE DEPTNO IN (
         )
     )
 );
-
--- Query to select the names of employees who are managed by 'SCOTT'
+```
+```-- Query to select the names of employees who are managed by 'SCOTT'
 SELECT ENAME 
 FROM EMP 
 WHERE EMPNO IN (
@@ -947,8 +869,8 @@ WHERE EMPNO IN (
     FROM EMP 
     WHERE ENAME = 'SCOTT'
 );
-
--- Query to select the salary and names of employees who are managed by 'ADAMS'
+```
+```-- Query to select the salary and names of employees who are managed by 'ADAMS'
 SELECT SAL, ENAME 
 FROM EMP 
 WHERE ENAME IN (
@@ -960,8 +882,8 @@ WHERE ENAME IN (
         WHERE ENAME = 'ADAMS'
     )
 );
-
--- Query to select the department names where employees managed by 'JONES' belong
+```
+```-- Query to select the department names where employees managed by 'JONES' belong
 SELECT DNAME 
 FROM DEPT 
 WHERE DEPTNO IN (
@@ -973,7 +895,7 @@ WHERE DEPTNO IN (
         WHERE ENAME = 'JONES'
     )
 );
-
+```
 
 
 # TYPES OF SUB QUERY
@@ -983,32 +905,32 @@ WHERE DEPTNO IN (
 1️⃣ Using "=" operator:
 
 
-SELECT name
+```SELECT name
 FROM animals
 WHERE age = (SELECT MAX(age) FROM animals);
 
 
-This query selects the names of animals whose age is equal to the maximum age in the animals table.
+This query selects the names of animals whose age is equal to the maximum age in the animals table.```
 
 2️⃣ Using IN operator:
 
 
-SELECT name
+```SELECT name
 FROM animals
 WHERE species IN (SELECT species FROM endangered_species);
 
 
-This query selects the names of animals whose species are listed in the endangered_species table.
+This query selects the names of animals whose species are listed in the endangered_species table.```
 
 3️⃣ Using NOT IN operator:
 
 
-SELECT name
+```SELECT name
 FROM animals
 WHERE species NOT IN (SELECT species FROM extinct_species);
 
 
-This query selects the names of animals whose species are not listed in the extinct_species table.
+This query selects the names of animals whose species are not listed in the extinct_species table.```
 
 🔄 A multi-row subquery returns more than one row as output. These subqueries often use operators like IN, ANY, or ALL to compare against multiple values. 
 
@@ -1038,11 +960,11 @@ These rules are important to ensure that the subquery behaves correctly in the c
 
 🔄 **Special Operators:**
 - The ALL operator compares a value to every value returned by a subquery. It returns true if the comparison is true for all values returned by the subquery, and false otherwise. 
-    - Syntax: 
+    ```- Syntax: 
     
     SELECT column_name(s)
     FROM table_name
-    WHERE column_name operator ALL (SELECT column_name FROM table_name WHERE condition);
+    WHERE column_name operator ALL (SELECT column_name FROM table_name WHERE condition);```
 
 
 - The ANY operator compares a value to each value returned by a subquery. It returns true if the comparison is true for at least one value returned by the subquery, and false otherwise. 
@@ -1055,11 +977,11 @@ These rules are important to ensure that the subquery behaves correctly in the c
 
 ℹ️ Examples:
 
--- Selecting employees whose salary is greater than any salesmen's salary
-select ENAME from EMP where SAL > any (SELECT sal FROM emp WHERE job = 'SALESMAN');
+```-- Selecting employees whose salary is greater than any salesmen's salary
+select ENAME from EMP where SAL > any (SELECT sal FROM emp WHERE job = 'SALESMAN');```
 
--- Selecting employees whose salary is greater than all clerks' salary
-select ENAME from EMP where SAL >  ALL (SELECT sal FROM emp WHERE job = 'CLERK');
+```-- Selecting employees whose salary is greater than all clerks' salary
+select ENAME from EMP where SAL >  ALL (SELECT sal FROM emp WHERE job = 'CLERK');```
 
 
 # Joins
@@ -1091,24 +1013,24 @@ In this join, we may encounter duplicate records.
 ### Example:
 
 
--- ANSI SQL Syntax:
+```-- ANSI SQL Syntax:
 SELECT *
 FROM table1
-CROSS JOIN table2;
+CROSS JOIN table2;```
 
--- Oracle SQL Syntax:
+```-- Oracle SQL Syntax:
 SELECT *
-FROM table1, table2;
+FROM table1, table2;```
 
 ### Example Usage:
 
--- Performing a Cartesian Join between EMP and DEPT tables
-select * from emp cross join dept;
+```-- Performing a Cartesian Join between EMP and DEPT tables
+select * from emp cross join dept;```
 
 
 
--- Performing a Cartesian Join between EMP and DEPT tables (Alternative syntax)
-select * from emp, dept;
+```-- Performing a Cartesian Join between EMP and DEPT tables (Alternative syntax)
+select * from emp, dept;```
 
 
 💡 **Note:**
@@ -1127,49 +1049,48 @@ The syntax for performing an INNER JOIN in SQL is quite similar between ANSI SQL
 
 ### ANSI SQL Syntax:
 
-
-SELECT *
+``` SELECT *
 FROM table1
-INNER JOIN table2 ON table1.column_name = table2.column_name;
+INNER JOIN table2 ON table1.column_name = table2.column_name;```
 
 
 ### Oracle SQL Syntax:
 
 
-SELECT *
+```SELECT *
 FROM table1
-JOIN table2 ON table1.column_name = table2.column_name;
+JOIN table2 ON table1.column_name = table2.column_name;```
 
 
 ### Example Usage:
 
 
--- Retrieving matched records between EMP and DEPT tables based on department number
+```-- Retrieving matched records between EMP and DEPT tables based on department number
 SELECT *
 FROM emp
-INNER JOIN dept ON emp.deptno = dept.deptno;
+INNER JOIN dept ON emp.deptno = dept.deptno;```
 
 ## Example Queries:
 
 
--- Example 1: Retrieving department name and employee number for employees located in New York with employee numbers 7839 and 7902
+```-- Example 1: Retrieving department name and employee number for employees located in New York with employee numbers 7839 and 7902
 SELECT DNAME, EMPNO 
 FROM EMP, DEPT 
 WHERE EMPNO IN (7839, 7902) 
 AND LOC = 'NEW YORK' 
-AND EMP.DEPTNO = DEPT.DEPTNO;
+AND EMP.DEPTNO = DEPT.DEPTNO;```
 
--- Example 2: Retrieving employee name and department name for departments with department numbers 10 and 30
+```-- Example 2: Retrieving employee name and department name for departments with department numbers 10 and 30
 SELECT ENAME, DNAME 
 FROM EMP, DEPT 
 WHERE deptno IN (10, 30) 
-AND EMP.deptno = DEPT.deptno;
+AND EMP.deptno = DEPT.deptno;```
 
--- Example 3: Retrieving employee name and department name for employees with null commission located in departments with department numbers 10 and 30
+```-- Example 3: Retrieving employee name and department name for employees with null commission located in departments with department numbers 10 and 30
 SELECT ENAME, DNAME 
 FROM EMP, DEPT 
 WHERE emp.deptno = dept.deptno 
-AND ENAME IN  (SELECT ENAME FROM EMP WHERE COMM IS NULL AND DEPTNO IN (10, 30));
+AND ENAME IN  (SELECT ENAME FROM EMP WHERE COMM IS NULL AND DEPTNO IN (10, 30));```
 
 
 💡 **Tip:**
@@ -1188,46 +1109,46 @@ In an outer join, we retrieve both the matched records and any unmatched records
 
 ### LEFT OUTER JOIN:
 
-SELECT *
+```SELECT *
 FROM table1
 LEFT OUTER JOIN table2 ON table1.column_name = table2.column_name;
-This query retrieves all records from table1 and matching records from table2 based on the specified join condition. It also includes any unmatched records from table1.
+--This query retrieves all records from table1 and matching records from table2 based on the specified join condition. It also includes any unmatched records from table1.```
 
 ### RIGHT OUTER JOIN:
 
-SELECT *
+```SELECT *
 FROM table1
-RIGHT OUTER JOIN table2 ON table1.column_name = table2.column_name;
-This query retrieves all records from table2 and matching records from table1 based on the specified join condition. It also includes any unmatched records from table2.
+-- RIGHT OUTER JOIN table2 ON table1.column_name = table2.column_name;
+This query retrieves all records from table2 and matching records from table1 based on the specified join condition. It also includes any unmatched records from table2.```
 
 ### FULL OUTER JOIN:
 
-SELECT *
+```SELECT *
 FROM table1
 FULL OUTER JOIN table2 ON table1.column_name = table2.column_name;
-This query retrieves all records when there is a match in either table1 or table2. If there's no match, NULL values are used for the missing side.
+-- This query retrieves all records when there is a match in either table1 or table2. If there's no match, NULL values are used for the missing side.```
 
 ## Oracle SQL Syntax:
 
 ### LEFT OUTER JOIN:
 
-SELECT *
+```SELECT *
 FROM table1, table2
 WHERE table1.column_name(+) = table2.column_name;
-This query performs a left outer join in Oracle SQL, where records from table1 are included even if they don't have matching records in table2.
+-- This query performs a left outer join in Oracle SQL, where records from table1 are included even if they don't have matching records in table2.```
 
 ### RIGHT OUTER JOIN:
 
-SELECT *
+```SELECT *
 FROM table1, table2
 WHERE table1.column_name = table2.column_name(+);
-This query performs a right outer join in Oracle SQL, where records from table2 are included even if they don't have matching records in table1.
+-- This query performs a right outer join in Oracle SQL, where records from table2 are included even if they don't have matching records in table1.```
 
 ### FULL OUTER JOIN:
 
-SELECT *
+```SELECT *
 FROM table1 FULL JOIN table2 ON table1.column_name = table2.column_name;
-This query performs a full outer join in Oracle SQL, retrieving all records from both tables regardless of matches.
+-- This query performs a full outer join in Oracle SQL, retrieving all records from both tables regardless of matches.```
 
 In these queries:
 - `table1` and `table2` are the tables you want to join.
@@ -1243,41 +1164,41 @@ A self join is used to join the same table to itself. It's employed when the dat
 
 ## ANSI SQL Syntax:
 
-SELECT t1.column1, t2.column2
+```SELECT t1.column1, t2.column2
 FROM table_name t1
-JOIN table_name t2 ON t1.related_column = t2.related_column;
+JOIN table_name t2 ON t1.related_column = t2.related_column;```
 
 ## Oracle SQL Syntax:
 
-SELECT t1.column1, t2.column2
+```SELECT t1.column1, t2.column2
 FROM table_name t1, table_name t2
-WHERE t1.related_column = t2.related_column;
+WHERE t1.related_column = t2.related_column;```
 
 ### Example Queries:
 
 
--- Query 1: Select employee names and salaries for employees whose managers' and their own salaries are both greater than 2300.
+```-- Query 1: Select employee names and salaries for employees whose managers' and their own salaries are both greater than 2300.
 
 SELECT E1.ENAME, E2.SAL 
 FROM EMP E1, EMP E2 
 WHERE E1.MGR = E2.EMPNO  
 AND E1.SAL > 2300 
-AND E2.SAL > 2300;
+AND E2.SAL > 2300;```
 
--- Query 2: Select names of employees and their managers hired before January 1, 1982.
+```-- Query 2: Select names of employees and their managers hired before January 1, 1982.
 
 SELECT E1.ENAME, E2.ENAME 
 FROM EMP E1, EMP E2 
 WHERE E1.MGR = E2.EMPNO  
-AND E1.HIREDATE < '1982-01-01'; 
+AND E1.HIREDATE < '1982-01-01'; ```
 
--- Query 3: Select names of employees and their commissions for salesmen in department 30.
+```-- Query 3: Select names of employees and their commissions for salesmen in department 30.
 
 SELECT E1.ENAME, E2.COMM 
 FROM EMP E1, EMP E2 
 WHERE E1.MGR = E2.EMPNO 
 AND E1.JOB = 'SALESMAN' 
-AND E2.DEPTNO = '30';
+AND E2.DEPTNO = '30';```
 
 In these queries:
 - `EMP` is the table being self-joined.
@@ -1291,23 +1212,23 @@ When using INNER JOIN to join N number of tables, we need N minus one join condi
 ## Example Queries:
 
 
--- Query 1: Select employee names, their managers' names, and department names.
+```-- Query 1: Select employee names, their managers' names, and department names.
 SELECT E1.ENAME, E2.ENAME, D1.DNAME, D2.DNAME 
 FROM EMP E1, EMP E2, DEPT D1, DEPT D2 
 WHERE E1.MGR = E2.EMPNO 
 AND E1.DEPTNO = D1.DEPTNO 
-AND E2.DEPTNO = D2.DEPTNO;
+AND E2.DEPTNO = D2.DEPTNO;```
 
--- Query 2: Select employee names, their managers' names, and department names where employee salary is greater than 2000 and department number is 20.
+```-- Query 2: Select employee names, their managers' names, and department names where employee salary is greater than 2000 and department number is 20.
 SELECT E1.ENAME, E2.ENAME, D1.DNAME, D2.DNAME 
 FROM EMP E1, EMP E2, DEPT D1, DEPT D2 
 WHERE E1.MGR = E2.EMPNO 
 AND E1.DEPTNO = D1.DEPTNO 
 AND E2.DEPTNO = D2.DEPTNO 
 AND E1.SAL > 2000 
-AND E2.DEPTNO = 20;
+AND E2.DEPTNO = 20;```
 
--- Query 3: Select employee names, their department locations, manager names, and manager department locations for employees in departments 10 or 30, whose salary is greater than that of employee 'FROD', and department location is either 'NEWYORK' or 'CHICAGO'.
+```-- Query 3: Select employee names, their department locations, manager names, and manager department locations for employees in departments 10 or 30, whose salary is greater than that of employee 'FROD', and department location is either 'NEWYORK' or 'CHICAGO'.
 SELECT E1.ENAME, D1.LOC, E2.ENAME, D2.LOC 
 FROM EMP E1, EMP E2, DEPT D1, DEPT D2 
 WHERE E1.MGR = E2.EMPNO 
@@ -1315,37 +1236,34 @@ AND E1.DEPTNO = D1.DEPTNO
 AND E2.DEPTNO = D2.DEPTNO 
 AND E1.DEPTNO IN (10, 30) 
 AND E2.SAL > (SELECT SAL FROM EMP WHERE ENAME = 'FROD') 
-AND D1.LOC IN ('NEWYORK', 'CHICAGO');
+AND D1.LOC IN ('NEWYORK', 'CHICAGO');```
 
--- Query 4: Select employee names, their manager names, and department locations for employees hired before September 28, 1981, in departments 10 or 40, whose salary is greater than that of employee 'SMITH'.
+```-- Query 4: Select employee names, their manager names, and department locations for employees hired before September 28, 1981, in departments 10 or 40, whose salary is greater than that of employee 'SMITH'.
 SELECT E1.ENAME, E2.ENAME, D1.LOC, D2.LOC 
 FROM EMP E1, EMP E2, DEPT D1, DEPT D2 
 WHERE E1.MGR = E2.EMPNO 
 AND E1.HIREDATE < '1981-09-28' 
 AND (E2.DEPTNO = 10 OR E2.DEPTNO = 40) 
-AND E2.SAL > (SELECT SAL FROM EMP WHERE ENAME = 'SMITH');
-
-
+AND E2.SAL > (SELECT SAL FROM EMP WHERE ENAME = 'SMITH');```
 
 # Natural Join 🔗 
 In a natural join, there's no need to write any join condition explicitly. If the tables contain similar columns, the natural join will output the result similar to an inner join. However, if the tables don't have similar columns, the natural join will behave like a Cartesian join.
 
 We use a natural join when we want to join tables based on the columns that are present in their table structures. It simplifies the join process by automatically matching columns with the same names from the tables being joined.
 
-## Example Queries:
 
 ```sql
 -- ANSI SQL Syntax:
 -- Query 1: Perform a natural join between table1 and table2.
 SELECT *
 FROM table1
-NATURAL JOIN table2;
+NATURAL JOIN table2;```
 
--- Oracle SQL Syntax:
+```-- Oracle SQL Syntax:
 -- Query 2: Perform a natural join between EMP and DEPT tables.
 SELECT *
 FROM EMP
-NATURAL JOIN DEPT;
+NATURAL JOIN DEPT;```
 
 # Single-Row Functions
 
@@ -1501,29 +1419,13 @@ Datatypes are used to determine what type of data or kind of data will be stored
 #### SYNTAX:
 
 
-Char (SIZE)
+```Char (SIZE)```
 
 - SIZE: It is used to determine the number of characters that can be stored.
 - The maximum size that we can store is 2000.
 - It is a type of "fixed-length memory allocation". The major drawback of CHAR is its suboptimal usage of memory.
 
-# Varchar and Varchar2 in SQL
 
-## Varchar
-
-- Varchar datatype can accept characters such as special characters (#, *, $, ----).
-- Syntax: `Varchar (SIZE)`
-- Size: It is used to determine the number of characters that we can store.
-- Whenever we mention the Varchar datatype, we have to mention the size for it.
-- The maximum size that we can store is 2000.
-- It is a type of "variable-length memory allocation" where there is no wastage of memory in Varchar.
-
-## VARCHAR2
-
-- Varchar2 is the updated version of Varchar.
-- The size is updated from 2000 to 4000.
-- Syntax: `Varchar2(size)`
-- The maximum size we can store is 18,4000.
 
 ## Differences between CHAR and VARCHAR:
 
@@ -1554,19 +1456,6 @@ Suppose you have a CHAR(10) column and a VARCHAR(10) column.
 - CHAR is fixed-length and always uses the specified length.
 - VARCHAR is variable-length and only uses as much storage as needed for the actual data.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Differences between VARCHAR and VARCHAR2
 
 ## VARCHAR:
@@ -1595,9 +1484,7 @@ While both VARCHAR and VARCHAR2 are used to store variable-length character data
 # Number 🔢
 
 This datatype is used to store numeric values.
-
 It can accept two arguments:
-
 - Precision
 - Scale
 
@@ -1624,7 +1511,6 @@ The maximum precision that can be specified is 38. The maximum scale that can be
 - The default value for the scale parameter in the Number datatype is zero.
 - This means that if the scale is not explicitly specified, the number will be considered as a whole number without any decimal places.
 - When converting a character to a numeric datatype using automatic type conversion in a computer database system, it's essential to be aware of the default behavior to ensure accurate data representation and calculations.
-
 ---
 
 **Date 📅:**
@@ -1823,16 +1709,16 @@ DDL (Data Definition Language) is a set of SQL commands used to define, modify, 
 
 The CREATE statement is used to create new database objects such as tables, views, indexes, etc.
 
-<!-- Syntax example:
+```Syntax example:
 CREATE TABLE table_name (
     column1 datatype constraints,
     column2 datatype constraints,
     ...
-); -->
+); ```
 
 **Example:**
 
-CREATE TABLE products (
+```CREATE TABLE products (
     product_id INT PRIMARY KEY,
     product_name VARCHAR(100) NOT NULL,
     description TEXT,
@@ -1843,9 +1729,9 @@ CREATE TABLE products (
     CONSTRAINT fk_category_id FOREIGN KEY (category_id) REFERENCES categories(category_id),
     CONSTRAINT chk_price CHECK (price >= 0),
     CONSTRAINT chk_stock_quantity CHECK (stock_quantity >= 0)
-);
+);```
 
-```markdown
+
 # SQL ALTER Statement
 
 The ALTER statement is used to modify the structure of existing database objects. It allows you to add, modify, or drop columns, constraints, or other properties of a table without needing to drop and recreate them.
@@ -1950,8 +1836,6 @@ Here are some examples of using the `ALTER` statement:
 - The specific actions available with `ALTER` depend on the database system you are using (e.g., MySQL, PostgreSQL, Oracle, etc.).
 - Some actions may require specific permissions or privileges.
 - Always be cautious when using `ALTER` statements, especially in production environments, as they can have significant impacts on your database schema and data.
-```
-
 
 The DROP statement is used to delete an object, typically a table, from the database along with its table structure.
 
@@ -2241,7 +2125,7 @@ Pseudo columns are virtual columns present in each and every table but need to b
 - **Description**: Rownum acts as a sequential number assigned to each row in the result set. 🚦
 - **Example Usage**: 
   ```sql
-  SELECT Rownum, Emp.* FROM Emp;
+  SELECT Rownum, Emp.* FROM Emp;```
 Note:
 Rownum is used for numbering the records in the resulting table.
 It is dynamic in nature, meaning it changes with each execution.
@@ -2593,7 +2477,7 @@ A table is in first normal form if it satisfies the following conditions:
 
 #### Example:
 
-```diff
+```
 SID | Name   | Skills
 ----|--------|-------
 1   | Stella | Python, Java
@@ -2607,7 +2491,7 @@ If there are partial functional dependencies, attributes responsible for them sh
 
 #### Example:
 
-```css
+```
 StdID | Name   | SubjectID | Subject | Teacher
 ------|--------|-----------|---------|--------
 910   | Stella | A         | Python  | Mr. A
@@ -2620,7 +2504,7 @@ If there are transitive functional dependencies, the attributes causing them sho
 
 #### Example:
 
-```yaml
+```
 EmpNo | EmpName | Salary | DepartmentID | Pincode | State
 ------|---------|--------|--------------|---------|------
 1     | Alice   | 5000   | HR           | 12345   | CA
