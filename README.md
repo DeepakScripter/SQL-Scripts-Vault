@@ -725,11 +725,11 @@ We can pass multiple conditions in a HAVING clause by using logical operators.
 - The HAVING clause executes group by group.
 - It cannot be used without using the GROUP BY clause.
 - Multiple conditions can be passed in the HAVING clause using logical operators.
-```
+
 
 This query would return salaries that appear more than once in the `EMP` table:-
 
-```sql
+```
 -- SELECT SAL 
 -- FROM EMP 
 -- GROUP BY SAL 
