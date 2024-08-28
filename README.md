@@ -2661,3 +2661,1321 @@ EmpNo | EmpName | Salary | DepartmentID | Pincode | State
 ### Boyce-Codd Normal Form (BCNF):
 It's an updated version of 3NF, also known as 3.5 NF.
 
+
+# 📚 **SQL Normalization: A Comprehensive Guide**
+
+## 🧠 **1. Introduction to Normalization**
+- **Normalization** is the process of organizing data to minimize redundancy. It ensures that data is structured efficiently, reducing the likelihood of anomalies and improving database performance.
+
+## ⚠️ **2. Disadvantages of Data Redundancy**
+- **Disk Space Waste:** Storing duplicate data wastes valuable disk space.
+- **Data Inconsistency:** Redundant data can lead to inconsistencies, making it difficult to ensure data accuracy.
+- **Slower DML Queries:** Insert, Update, and Delete operations can become slow due to data redundancy.
+
+## 🧩 **3. Understanding the Normal Forms**
+- **First Normal Form (1NF):**
+  - Ensure that each column contains atomic (indivisible) values.
+  - Avoid having multiple values separated by commas in a single cell.
+  - Avoid repeating groups of columns.
+
+- **Second Normal Form (2NF):**
+  - A table is in 2NF if it is in 1NF and all non-key attributes are fully functionally dependent on the primary key.
+  - Eliminate partial dependencies by creating separate tables for different sets of related data.
+
+- **Third Normal Form (3NF):**
+  - A table is in 3NF if it is in 2NF and all its attributes are not only dependent on the primary key but also non-transitively dependent.
+  - Remove transitive dependencies by ensuring that non-key attributes are dependent on only the primary key.
+
+
+# SQL Server Bulk Insert  🎓
+
+
+
+## 🌟 Overview
+If you ever need to insert a massive dataset, such as thousands or even millions of records from a CSV or Excel file into a SQL Server table, **Bulk Insert** is your go-to method. This technique is not only efficient but also crucial for practical tests and interviews.
+
+
+### Bulk Insert Definition
+The Bulk Insert statement allows you to import data from a file into a table or view in SQL Server. This is especially useful when dealing with large datasets.
+
+### Bulk Insert Basic Syntax
+```sql
+BULK INSERT [TableName]
+FROM '[FilePath]'
+WITH (
+    FIELDTERMINATOR = ',',
+    ROWTERMINATOR = '\n'
+);
+```
+
+### Example
+Let's say you have a file `Employees.csv` stored in the `D:\Data\` directory. The file contains thousands of records that you want to insert into the `Employees` table.
+
+```sql
+BULK INSERT Employees
+FROM 'D:\Data\Employees.csv'
+WITH (
+    FIELDTERMINATOR = ',',
+    ROWTERMINATOR = '\n',
+    FIRSTROW = 2
+);
+```
+
+### Key Points to Remember
+- **Table Name**: The table where data will be inserted.
+- **File Path**: The full path to your data file.
+- **Field Terminator**: The character that separates fields in your file (e.g., comma `,`).
+- **Row Terminator**: The character that signifies the end of a row (`\n` for newline).
+- **First Row**: Start from the second row if the first row contains headers.
+
+## 🛠 Practical Example
+Follow along as I demonstrate this process in SQL Server Management Studio (SSMS). We'll create a table, define its structure, and use Bulk Insert to populate it with data from a CSV file.
+
+1. **Create the Table**
+    ```sql
+    CREATE TABLE Employees (
+        EmployeeID INT,
+        FirstName NVARCHAR(50),
+        LastName NVARCHAR(50),
+        Email NVARCHAR(100),
+        Salary FLOAT
+    );
+    ```
+
+2. **Perform the Bulk Insert**
+    ```sql
+    BULK INSERT Employees
+    FROM 'D:\Data\Employees.csv'
+    WITH (
+        FIELDTERMINATOR = ',',
+        ROWTERMINATOR = '\n',
+        FIRSTROW = 2
+    );
+    ```
+
+3. **Verify the Data**
+    ```sql
+    SELECT * FROM Employees;
+    ```
+
+## 📚 Additional Tips
+- If your `\n` (newline) doesn't work as expected, consider using the hexadecimal value for a line break.
+- Always start from the second row (`FIRSTROW = 2`) if your file contains headers.
+- Use views if you prefer not to insert data directly into tables.
+
+
+
+
+
+## 🔍 **Understanding the Query Execution Order**
+When you execute a query in SQL Server, the execution order isn't the same as the order in which you write the statements. Instead, SQL Server follows a specific order to optimize and execute the query. 🛠️
+
+Here’s the correct execution order:
+1. **FROM** 🛢️
+2. **WHERE** 🔍
+3. **GROUP BY** 📊
+4. **HAVING** 📝
+5. **SELECT** 🗂️
+6. **ORDER BY** 🏷️
+
+## 🧪 **Practical Example**
+Let’s say we have the following SQL query:
+
+```sql
+SELECT City, SUM(Salary) 
+FROM Employees 
+WHERE City NOT IN ('Sakhar') 
+GROUP BY City 
+HAVING SUM(Salary) > 50000 
+ORDER BY SUM(Salary) DESC;
+```
+
+### Execution Order:
+1. **FROM** 🛢️: The table is identified.
+2. **WHERE** 🔍: Rows that don’t meet the `WHERE` condition are filtered out.
+3. **GROUP BY** 📊: The remaining data is grouped by the specified columns.
+4. **HAVING** 📝: Groups that don’t meet the `HAVING` condition are filtered.
+5. **SELECT** 🗂️: Only the specified columns are selected.
+6. **ORDER BY** 🏷️: The results are sorted as per the order specified.
+
+
+
+
+
+
+# 🚀 Subquery in SQL: The Essential Guide
+
+
+
+## 📌 Key Points
+
+- **What is a Subquery?**  
+  A Subquery is a query nested within another SQL query, typically embedded within the `WHERE` clause. It functions as a condition and helps refine your main query's results.
+
+- **Types of Subqueries:**
+  - **Single Row Subquery**: Returns only one row.
+  - **Multiple Row Subquery**: Returns multiple rows.
+  - **Correlated Subquery**: Depends on the outer query for its value.
+
+- **Usage of Subqueries:**  
+  Subqueries can be used in:
+  - `SELECT`
+  - `UPDATE`
+  - `DELETE`
+  - `INSERT`
+  
+  They are powerful tools for filtering data based on complex conditions.
+
+- **Example:**  
+  ```sql
+  SELECT * FROM employees
+  WHERE employee_id IN (
+    SELECT employee_id FROM salaries
+    WHERE salary > 30000
+  );
+  ```
+  - This query selects employees whose salary is greater than 30,000.
+
+## 🎯 Why Subqueries are Important?
+- **Refined Data Selection**: Allows you to narrow down results using conditions within conditions.
+- **Interview Essential**: Understanding Subqueries is critical for performing well in SQL-related job interviews.
+
+## 🚨 Important Notes
+- Ensure your subquery returns a compatible data type for the main query.
+- Subqueries should be optimized to avoid performance issues.
+
+
+
+
+
+# 🚀 SQL Server Joins Guide
+
+
+
+## 🎯 Key Concepts
+- **SQL Joins** are used to combine data from two or more tables based on a related column.
+- **Types of Joins**:
+  - 🔗 **Inner Join**: Retrieves records with matching values in both tables.
+  - ➡️ **Left Join**: Retrieves all records from the left table and matching records from the right table.
+  - ⬅️ **Right Join**: Retrieves all records from the right table and matching records from the left table.
+  - 🔄 **Full Outer Join**: Retrieves all records when there is a match in either left or right table.
+
+## ⚙️ Example
+Consider two tables:
+- **Employee Table**: Contains details like `EmployeeID`, `EmployeeName`, etc.
+- **Department Table**: Contains `DepartmentID`, `DepartmentName`, `EmployeeID`, etc.
+
+We can join these tables using `EmployeeID` to combine data effectively.
+
+## 🚀 How to Use
+1. **Create Tables**: Use SQL queries to create your `Employee` and `Department` tables.
+2. **Insert Data**: Populate the tables with relevant data.
+3. **Execute Joins**: Perform various types of joins to retrieve combined data as per your requirement.
+
+
+
+
+
+
+# 📚 Understanding Primary Key & Foreign Key in SQL Server
+
+
+
+## 🎯 Key Points
+
+### 🗝️ Primary Key
+- **Definition**: A primary key uniquely identifies each record in a table. 
+- **Properties**:
+  - Must be **unique**.
+  - Cannot be **NULL**.
+- **Usage**: Ensures that each record can be uniquely identified within a table.
+
+### 🔗 Foreign Key
+- **Definition**: A foreign key is a column (or a set of columns) in one table that refers to the primary key in another table.
+- **Usage**: Creates a relationship between two tables, ensuring data integrity.
+- **Important**: The foreign key value must match a primary key value in the referenced table or be NULL.
+
+## 📊 Example Scenario
+
+Let's illustrate with a simple example:
+
+### Tables
+1. **Customer Table**:
+   - `CustomerID` (Primary Key)
+   - `CustomerName`
+   - `Address`
+   - `City`
+
+2. **Order Table**:
+   - `OrderID` (Primary Key)
+   - `OrderItem`
+   - `Quantity`
+   - `PricePerItem`
+   - `CustomerID` (Foreign Key)
+
+### Relationship
+- **Customer Table** has a primary key (`CustomerID`).
+- **Order Table** includes a foreign key (`CustomerID`) that references the primary key in the Customer Table.
+
+### Practical Application
+1. **Adding Data**:
+   - Insert a new customer into the **Customer Table**.
+   - Use the `CustomerID` to create orders in the **Order Table**.
+
+2. **Data Integrity**:
+   - **Order Table** will not allow entries if the `CustomerID` does not exist in the **Customer Table**.
+   - You cannot delete a customer from the **Customer Table** if there are related orders in the **Order Table**.
+
+## 🛠️ SQL Commands
+
+### Create Tables
+```sql
+CREATE TABLE Customer (
+    CustomerID INT PRIMARY KEY,
+    CustomerName NVARCHAR(MAX),
+    Address NVARCHAR(MAX),
+    City NVARCHAR(100)
+);
+
+CREATE TABLE Order (
+    OrderID INT PRIMARY KEY,
+    OrderItem NVARCHAR(MAX),
+    Quantity INT,
+    PricePerItem DECIMAL(10, 2),
+    CustomerID INT,
+    FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
+);
+```
+
+### Insert Data
+```sql
+-- Insert into Customer Table
+INSERT INTO Customer (CustomerID, CustomerName, Address, City)
+VALUES (1, 'John Doe', '123 Elm Street', 'Springfield');
+
+-- Insert into Order Table
+INSERT INTO Order (OrderID, OrderItem, Quantity, PricePerItem, CustomerID)
+VALUES (101, 'Laptop', 1, 1200.00, 1);
+```
+
+### Error Handling
+- **Foreign Key Violation**: Attempting to insert an order with a non-existent `CustomerID` will result in an error.
+- **Delete Restriction**: Deleting a customer with existing orders will not be allowed.
+
+
+
+## 📚 **Understanding Primary Key vs Unique Key in SQL Server** 🚀
+
+
+### 🔑 **Primary Key vs Unique Key: Key Points** 
+
+#### **Syntax Overview** 💻
+- **Primary Key**: `PRIMARY KEY`
+- **Unique Key**: `UNIQUE`
+
+#### **Similarities** 🤝
+1. **No Duplicate Values** 🚫  
+   Both **Primary Key** and **Unique Key** ensure that no duplicate values exist in the column where they are applied.
+
+2. **Automatic Indexing** 📈  
+   Both **Primary Key** and **Unique Key** automatically create an index on the column for faster retrieval.
+
+#### **Differences** ⚖️
+1. **Null Values** ❌  
+   - **Primary Key**: Cannot accept null values.
+   - **Unique Key**: Can accept multiple null values.
+
+2. **Number of Keys** 🔢  
+   - **Primary Key**: Only one per table.
+   - **Unique Key**: Multiple unique keys can be applied to a single table.
+
+### 🛠️ **Practical Example**
+
+1. **Creating a Table** 🏗️
+   ```sql
+   CREATE TABLE Person (
+       ID INT PRIMARY KEY,
+       FirstName NVARCHAR(50),
+       LastName NVARCHAR(50),
+       Age INT,
+       Email NVARCHAR(100) UNIQUE,
+       CountryID INT UNIQUE
+   );
+   ```
+
+2. **Inserting Data** 💾
+   ```sql
+   INSERT INTO Person (ID, FirstName, LastName, Age, Email, CountryID)
+   VALUES (1, 'Adil', 'Ansari', 25, 'adil@example.com', 66);
+   ```
+
+3. **Handling Errors** 🚫
+   - **Primary Key Error**: Duplicate ID.
+   - **Unique Key Error**: Duplicate Email.
+
+### 💡 **Key Takeaways**
+- **Primary Key**: Unique identifier for each row, no nulls allowed.
+- **Unique Key**: Ensures uniqueness but allows multiple nulls.
+
+
+
+
+
+## 🆚 **CHAR vs. NCHAR**
+
+**1. Storage:**
+
+- **CHAR**: 
+  - Use when you want to store English characters only. 
+  - **Example**: If you want to store English letters and numbers (e.g., 'A', '1'), use `CHAR`.
+  - **Size**: 1 CHAR = 1 byte. 
+
+- **NCHAR**: 
+  - Use when you need to store multilingual or Unicode characters. 
+  - **Example**: If you need to store languages like Chinese, Japanese, Hindi, or Urdu, use `NCHAR`.
+  - **Size**: 1 NCHAR = 2 bytes.
+
+**2. Use Case:**
+
+- **CHAR**: Best for fixed-length, English-only data.
+- **NCHAR**: Ideal for fixed-length data that includes Unicode characters.
+
+**3. Performance:**
+
+- **CHAR**: Efficient for English text, uses less memory.
+- **NCHAR**: Suitable for multilingual data but uses more memory (2 bytes per character), which may affect performance for large datasets.
+
+---
+
+## 📝 **Summary**
+
+- **CHAR**: Fixed length, English-only, 1 byte per character.
+- **NCHAR**: Fixed length, supports Unicode (multilingual), 2 bytes per character.
+
+Remember, if you only need to store English characters, `CHAR` or `VARCHAR` (for variable length) is typically sufficient and more efficient. Use `NCHAR` or `NVARCHAR` when dealing with Unicode data.
+
+
+
+
+
+
+# 📚 Ultimate Guide to SQL Server Stored Procedures 🛠️
+
+
+
+## 📌 What is a Stored Procedure?
+
+A Stored Procedure is a set of SQL statements that you can save and reuse. It’s like a **function** in programming that performs a specific task. Here’s what you need to know:
+
+- **Definition**: A Stored Procedure is a set of SQL statements stored in a database.
+- **Name**: Each Stored Procedure has a name and is stored in a Relational Database Management System (RDBMS).
+- **Reuse**: Once created, it can be reused and shared by multiple programs.
+
+## 📝 Types of Stored Procedures
+
+1. **System Stored Procedures**: Predefined by the system.
+2. **User-Defined Stored Procedures**: Created by users.
+
+## 🚀 How to Create a Stored Procedure?
+
+### Example 1: Basic Stored Procedure
+
+```sql
+CREATE PROCEDURE sp_GetEmployee
+AS
+BEGIN
+    SELECT Name, Gender FROM EmployeeDetails;
+END;
+```
+
+**Execution Methods**:
+1. Directly execute using `EXEC sp_GetEmployee;`.
+2. Execute by writing the procedure name directly.
+3. Use `EXEC` command for shorter syntax.
+
+### Example 2: Stored Procedure with a Single Parameter
+
+```sql
+CREATE PROCEDURE sp_GetEmployeeByID
+    @ID INT
+AS
+BEGIN
+    SELECT * FROM EmployeeDetails WHERE ID = @ID;
+END;
+```
+
+**Execution**:
+```sql
+EXEC sp_GetEmployeeByID @ID = 2;
+```
+
+### Example 3: Stored Procedure with Multiple Parameters
+
+```sql
+CREATE PROCEDURE sp_GetEmployeeByIDAndName
+    @ID INT,
+    @Name NVARCHAR(50)
+AS
+BEGIN
+    SELECT * FROM EmployeeDetails WHERE ID = @ID AND Name = @Name;
+END;
+```
+
+**Execution**:
+```sql
+EXEC sp_GetEmployeeByIDAndName @ID = 2, @Name = 'John Doe';
+```
+
+## 📝 Key Points
+
+- **Stored Procedures** are reusable and efficient.
+- **System vs. User-Defined**: Know the difference.
+- **Parameters**: Can be single or multiple.
+- **Execution**: Use `EXEC` command or procedure name directly.
+
+
+
+
+
+# 📚 SQL Functions vs Stored Procedures: Key Points
+
+
+
+
+
+## 💡 Key Points
+
+### Stored Procedures 🛠️
+- **Definition**: A stored procedure is like a mini-program or a batch of SQL statements that perform actions on the database. It’s a set of SQL statements stored in the database.
+- **Database Environment**: Can change the database environment permanently (e.g., insert, update, delete data).
+- **Allowed Statements**: Supports `SELECT`, `INSERT`, `UPDATE`, and `DELETE` statements.
+- **Execution**: Cannot be executed directly with `SELECT` or `WHERE` clauses.
+- **Outputs**: Can return single or multiple outputs.
+- **Transaction Handling**: Supports transactions using `BEGIN`, `COMMIT`, and `ROLLBACK`.
+- **Error Handling**: Can use `TRY-CATCH` for error handling.
+
+### Functions 🔢
+- **Definition**: Functions are also sets of SQL statements but are used primarily for computations and returning computed values.
+- **Database Environment**: Cannot change the database environment permanently.
+- **Allowed Statements**: Only `SELECT` statements are allowed; `INSERT`, `UPDATE`, and `DELETE` are not allowed.
+- **Execution**: Can be called from `SELECT`, `WHERE`, and used within Stored Procedures.
+- **Outputs**: Generally returns a single scalar value (computed value).
+- **Transaction Handling**: Transactions are not supported.
+- **Error Handling**: `TRY-CATCH` is not supported for error handling.
+
+## 🔍 Detailed Differences
+
+- **Execution Context**:
+  - **Stored Procedures**: Can execute with `SELECT`, `INSERT`, `UPDATE`, and `DELETE`.
+  - **Functions**: Only `SELECT` can be used. Cannot perform data manipulation operations.
+  
+- **Output**:
+  - **Stored Procedures**: Can return multiple outputs.
+  - **Functions**: Typically return a single scalar value.
+
+- **Usage**:
+  - **Stored Procedures**: Can be used to perform complex operations and changes in the database.
+  - **Functions**: Ideal for computations and retrieving single values.
+
+- **Error Handling**:
+  - **Stored Procedures**: Supports `TRY-CATCH` blocks for error handling.
+  - **Functions**: Does not support `TRY-CATCH` blocks for error handling.
+
+- **Transactions**:
+  - **Stored Procedures**: Can handle transactions.
+  - **Functions**: Cannot handle transactions.
+
+
+
+
+
+
+
+
+
+
+# 📚 SQL Indexes - Boost Your Query Performance!
+
+
+## 📌 What You Will Learn:
+
+1. **Introduction to SQL Indexes:**
+   - SQL Indexes facilitate quick retrieval of data from a database. This is especially useful when dealing with large tables with millions of records. ⚡
+   - SQL Server 2012 introduced the indexing feature, allowing developers to efficiently locate specific data without scanning the entire table.
+
+2. **How Indexes Work:**
+   - An index in SQL Server 2012 contains information that allows you to find specific data without scanning through the entire table, improving query performance significantly. 🚀
+   - Indexes can be created on both tables and views, similar to how a book's index works. Instead of searching through each page, you can quickly jump to the desired chapter. 📖
+
+3. **Performance Impact of Indexes:**
+   - If an index is not present, the query engine has to scan every row in the table (known as a "Table Scan"), which can be time-consuming and affect performance. 🕒
+   - The right indexes in the right places can significantly improve the performance of your queries by reducing the time it takes to find the necessary data. 📈
+
+4. **Practical Example:**
+   - Imagine you have a table with thousands of rows and you want to retrieve data where the salary is between 10,000 and 22,000. Without an index, SQL Server will have to check each row one by one. But with an index on the salary column, the engine can jump directly to the relevant rows. 🧠
+
+5. **Best Practices:**
+   - Always use indexes on large tables where frequent data retrieval is necessary. 📊
+   - Indexes should be created based on the specific queries you frequently run to maximize performance. 🛠️
+   - Remember, while indexes improve read performance, they can slightly slow down write operations, so use them wisely. 📝
+
+
+# 📊 **Ultimate Guide To SQL Indexes** 📊
+
+
+
+## 🔍 **What Are Indexes?**
+Indexes help increase search and select performance in SQL Server. 🌟 They speed up data retrieval in large databases, which can otherwise be slow and inefficient. 🚀
+
+### **Key Points:**
+- **Purpose:** Boost search and select performance. 📈
+- **Concept:** Use of Balanced Tree Structure (B-Tree) for efficient searching. 🌳
+- **Performance Impact:** Significantly reduces query execution time by optimizing data access. ⏱️
+
+## 🛠️ **How Do Indexes Work?**
+Indexes use a B-Tree structure to organize data efficiently. Here's a simplified explanation:
+
+1. **Without Indexes:**
+   - **Sequential Search:** Scans records one by one, which can be very slow for large datasets. 📉
+
+2. **With Indexes:**
+   - **B-Tree Structure:** Uses nodes and branches to quickly locate data. 🌲
+   - **Efficient Search:** Reduces the number of records scanned, improving performance. 🏃‍♂️
+
+### **Example:**
+- Searching for record 99 in a table of 100 records:
+  - **Without Index:** Sequential search checks each record. 🕵️‍♂️
+  - **With Index:** B-Tree structure skips irrelevant nodes, quickly locating the desired record. 🎯
+
+## 🚀 **Benefits of Using Indexes**
+- **Faster Queries:** Reduces search time significantly. ⚡
+- **Efficient Data Retrieval:** Helps in handling large datasets effectively. 📊
+
+
+# 📚 **Types of Indexes in SQL** 📚
+
+
+## **🔍 What Are Indexes?**
+Indexes are used to speed up query performance by allowing fast retrieval of records from a database table.
+
+## **📊 Types of Indexes in SQL**
+
+### **1. Clustered Index**
+- **Definition**: A clustered index determines the physical order of data in a table. There can be only one clustered index per table.
+- **Example**: Typically created on the primary key column.
+- **Characteristics**:
+  - Only one per table.
+  - Reorganizes the table data.
+  - Fastest for range queries.
+  
+### **2. Non-Clustered Index**
+- **Definition**: A non-clustered index creates a separate structure from the data table that points to the data's location. Multiple non-clustered indexes can be created on a table.
+- **Example**: Useful for columns that are often queried but not suitable for clustering.
+- **Characteristics**:
+  - Multiple non-clustered indexes can exist per table.
+  - Does not alter the table data's physical order.
+  - Slower for range queries compared to clustered indexes.
+
+## **📝 Key Points**
+- **Both indexes use B-Tree structure** to facilitate fast searches. 🌳
+- **Clustered Index**: Directly affects the table's physical data storage. 📦
+- **Non-Clustered Index**: Points to the data through the clustered index. 🗂️
+
+### **🔑 Important Details**
+- **One clustered index** per table vs. **multiple non-clustered indexes**. 
+- Clustered index leaf nodes point to actual data rows, while non-clustered index leaf nodes point to clustered index nodes.
+
+## **🔗 Real-Life Analogy**
+Imagine a book with an index page that helps you locate specific chapters. Similarly, SQL indexes help quickly locate data within a database table. 📖
+
+
+
+
+# 📊 SQL Server Views Guide
+
+## 📌 What is a View?
+A **View** in SQL Server is essentially a saved SQL query. Think of it as a virtual table created by saving a query that you frequently use. 
+
+- **Virtual Table**: A view can be considered as a virtual table. It doesn't physically store data but presents it from one or more tables. 🗂️
+- **Security**: Views help in implementing row and column-level security. For example, you can create a view to limit the data that users can see or hide sensitive columns like salary. 🔒
+
+## 🛠️ Creating a View
+Here's a basic syntax to create a view:
+
+```sql
+CREATE VIEW [ViewName] AS
+SELECT [Column1], [Column2]
+FROM [TableName]
+WHERE [Condition];
+```
+
+### Example
+Suppose we have two tables: `Employees` and `Departments`. We can create a view to show employee details along with their department names:
+
+```sql
+CREATE VIEW dbo.EmployeeView AS
+SELECT e.EmployeeID, e.EmployeeName, d.DepartmentName
+FROM Employees e
+INNER JOIN Departments d ON e.DepartmentID = d.DepartmentID;
+```
+
+## 🛠️ Modifying a View
+You can alter an existing view to change its structure or the data it retrieves:
+
+```sql
+ALTER VIEW dbo.EmployeeView AS
+SELECT e.EmployeeID, e.EmployeeName, d.DepartmentName, e.City
+FROM Employees e
+INNER JOIN Departments d ON e.DepartmentID = d.DepartmentID;
+```
+
+## 🛠️ Using Views for Security
+To implement column-level security, you can exclude sensitive columns from the view:
+
+```sql
+CREATE VIEW dbo.EmployeeViewSecure AS
+SELECT EmployeeID, EmployeeName, Gender, City, DepartmentID
+FROM Employees;
+```
+
+In this example, the `Salary` column is not included in the view, ensuring it's not visible to users accessing this view.
+
+## 🎯 Summary
+- **Views** are saved queries that act as virtual tables.
+- They are useful for data abstraction, security, and simplifying complex queries.
+- Views can be modified or used to enforce security by hiding sensitive data.
+
+
+
+
+
+# 📚 Ultimate Guide to SQL Triggers
+
+
+## 📖 What are Triggers?
+
+A **Trigger** is a special kind of stored procedure that automatically executes when a specific event occurs in the database server. 🧩
+
+### ❓ What are Triggers and Why Do We Need Them?
+
+- **Definition**: Triggers are a piece of logic or a set of SQL statements that automatically execute in response to certain events such as INSERT, UPDATE, or DELETE operations.
+- **Automatic Execution**: Triggers execute automatically when specified events occur in the database.
+- **Types of Events**: Common events include INSERT, UPDATE, and DELETE.
+- **Difference from Stored Procedures**: Unlike stored procedures, triggers are not manually invoked but are tied to specific database operations.
+
+### Types of Triggers
+
+1. **DML Triggers**: Fired in response to Data Manipulation Language (DML) events like `INSERT`, `UPDATE`, and `DELETE`. 🔄
+2. **DDL Triggers**: Triggered by Data Definition Language events (e.g., creating or altering a table). 📊
+3. **Logon Triggers**: Executed when a user logs into the database. 🔐
+
+### DML Triggers Explained
+
+**DML Triggers** respond to events like:
+
+- **INSERT**: Adds new data.
+- **UPDATE**: Modifies existing data.
+- **DELETE**: Removes data.
+
+#### How to Use
+
+1. **Create Trigger**: Define your trigger using `CREATE TRIGGER`.
+2. **Specify Table**: Apply it to the relevant table.
+3. **Define Trigger Type**: Choose the event (e.g., `AFTER INSERT`).
+4. **Write Trigger Logic**: Specify what should happen when the trigger fires.
+
+For instance, if you want a trigger to execute after inserting a row into a table, you would create an `AFTER INSERT` trigger. Here’s a basic example:
+
+```sql
+CREATE TRIGGER TR_Student_After_Insert
+ON Tbl_Student
+AFTER INSERT
+AS
+BEGIN
+    PRINT 'Something happened to the Student table'
+END;
+```
+
+### Practical Example
+
+Suppose we have a table named `Tbl_Student` with columns like `ID`, `Name`, `Gender`, `Class`, and `Fees`. If you insert a new row, a trigger could print a message:
+
+```sql
+CREATE TRIGGER TR_Student_After_Insert
+ON Tbl_Student
+AFTER INSERT
+AS
+BEGIN
+    PRINT 'New row inserted into Tbl_Student'
+END;
+```
+
+**For `DELETE` Events**: Similarly, you can create a trigger for `AFTER DELETE` to handle post-deletion actions.
+
+```sql
+CREATE TRIGGER TR_Student_After_Delete
+ON Tbl_Student
+AFTER DELETE
+AS
+BEGIN
+    PRINT 'A row has been deleted from Tbl_Student'
+END;
+```
+
+### Magical Tables
+
+- **Inserted Table**: Holds newly inserted rows during an `INSERT` trigger.
+- **Deleted Table**: Contains rows that are deleted during a `DELETE` trigger.
+
+You can query these tables to get the data that triggered the event:
+
+```sql
+SELECT * FROM Inserted;
+SELECT * FROM Deleted;
+```
+
+### What are the Types of Triggers in SQL?
+
+1. **AFTER Triggers** (also known as FOR Triggers)
+   - **Definition**: AFTER triggers are executed after the specified event (INSERT, UPDATE, DELETE) has occurred.
+   - **Behavior**: They perform actions after the database operation is completed.
+   - **Example**: An `AFTER INSERT` Trigger executes after a new row is inserted into a table, such as updating related records or logging changes.
+
+2. **INSTEAD OF Triggers**
+   - **Definition**: INSTEAD OF triggers replace the action of the specified event. Instead of performing the default action, they execute their own logic.
+   - **Behavior**: They intercept the event and replace the default action with custom operations.
+   - **Example**: An `INSTEAD OF DELETE` Trigger executes instead of the default DELETE operation, which can be used to perform custom deletion logic or prevent deletion.
+
+
+
+
+
+
+# 📚 DML vs DDL Triggers
+
+
+## 🔍 What You’ll Learn
+
+- **DML Triggers**: 
+  - **What Are They?** 🧩
+    - Triggered by **INSERT, UPDATE, DELETE** operations on a table.
+  - **Execution Timing** ⏰
+    - Can be executed **before** or **after** the DML operation.
+  - **Usage** 🛠️
+    - Enforces business rules when data is modified in tables and views.
+
+- **DDL Triggers**:
+  - **What Are They?** 🧩
+    - Triggered by **CREATE, ALTER, DROP** operations on database objects (e.g., tables, views, procedures).
+  - **Execution Timing** ⏰
+    - Executed **after** the DDL operation. **Cannot** be executed before.
+  - **Usage** 🛠️
+    - Used to check and control database operations, ensuring consistency and integrity.
+
+## 📊 Key Differences
+
+- **Full Forms** 📜
+  - DML: **Data Manipulation Language**
+  - DDL: **Data Definition Language**
+
+- **Events** ⚙️
+  - **DML**: INSERT, UPDATE, DELETE
+  - **DDL**: CREATE, ALTER, DROP
+
+- **Trigger Scope** 🌐
+  - **DML Triggers**: Defined at the table level.
+  - **DDL Triggers**: Defined at either the database or server level.
+
+- **Execution** 🔄
+  - **DML Triggers**: Can be executed before or after the DML event.
+  - **DDL Triggers**: Always executed after the DDL event.
+
+## 📝 Example Usage
+
+- **DML Trigger Example**:
+  - **Use Case**: Automatically log changes when a record is updated.
+  
+- **DDL Trigger Example**:
+  - **Use Case**: Send a notification when a new table is created.
+
+
+
+# 📚 Database Backup & Restore Guide
+
+
+
+## 🚀 Backup Process
+1. **Open SQL Server Management Studio (SSMS)**
+   - Navigate to the **Databases** folder. 🔍
+   - Right-click on the database you want to back up. ➡️
+   - Select **Tasks** → **Back Up**. 💾
+
+2. **Configure Backup Settings**
+   - **General Tab**:
+     - Choose the **Full** recovery model. 📂
+     - Ensure **Backup Component** is set to **Database**.
+   - **Destination**:
+     - Add a backup location using the **Add** button. 📁
+     - Choose a folder (e.g., `D:\SQL_DB_Backup`) and name your backup file. 🎨
+     - Optionally, include the date in the filename (e.g., `DB_Backup_2024-08-28`).
+
+3. **Finalize Backup**
+   - Click **OK** to start the backup. ✅
+   - Verify the backup file is created in your selected folder. 🗂️
+
+## 🔄 Restore Process
+1. **Open SSMS and Select Restore**
+   - Right-click on the **Databases** folder. ➡️
+   - Select **Restore Database**. 🔄
+
+2. **Configure Restore Settings**
+   - **General Tab**:
+     - Choose **Device** and add the backup file from your storage location. 📂
+   - **Files Tab**:
+     - Check the **Relocate All Files** option.
+     - Adjust file locations if needed.
+
+3. **Complete Restore**
+   - Rename the database if necessary (e.g., `DB_Restore`). ✏️
+   - Click **OK** to restore the database. ✅
+   - Confirm that the restore is successful by checking your databases. 🗂️
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 📚 SQL Interview Questions & Answers 🚀
+
+
+## 📊 Table Structure
+
+Here’s a glimpse of the table we’re working with:
+
+| Candidate ID | Skills                |
+|--------------|------------------------|
+| 1001         | Python, JavaScript     |
+| 1002         | ASP.NET, SQL, JavaScript |
+| 1003         | ASP.NET, JavaScript    |
+| 1004         | React, JavaScript      |
+| 1005         | ASP.NET, SQL, JavaScript |
+
+We need to retrieve candidates who have all three required skills: ASP.NET, SQL, and JavaScript. 🔍
+
+## 📝 SQL Query
+
+Here’s how to write the SQL query to achieve this:
+
+```sql
+SELECT CandidateID, COUNT(Skills) AS SkillCount
+FROM Candidates
+WHERE Skills IN ('ASP.NET', 'SQL', 'JavaScript')
+GROUP BY CandidateID
+HAVING COUNT(Skills) = 3
+ORDER BY CandidateID ASC;
+```
+
+### 🔍 Explanation
+
+- **SELECT CandidateID, COUNT(Skills) AS SkillCount**: Selects the candidate ID and counts the number of skills.
+- **FROM Candidates**: Specifies the table from which to retrieve data.
+- **WHERE Skills IN ('ASP.NET', 'SQL', 'JavaScript')**: Filters the rows to include only those with the required skills.
+- **GROUP BY CandidateID**: Groups the results by candidate ID.
+- **HAVING COUNT(Skills) = 3**: Ensures that only candidates with all three skills are included.
+- **ORDER BY CandidateID ASC**: Sorts the results by candidate ID in ascending order.
+
+
+
+
+# 📊 **Find Monthly Sales in Descending Order** 📈
+
+
+
+### 📝 **Overview**
+
+
+1. **Understand the task**: Extract monthly sales from a table.
+2. **Write the SQL query**: To gather sales data in descending order.
+3. **Execute and verify the results**.
+
+### 🧩 **Task Explanation**
+
+- **Objective**: Find monthly sales and present them in descending order. 📅
+- **Table Example**: A product sales table with columns like `ProductID`, `ProductName`, `Price`, `OrderDate`, and `Sales`.
+
+### 📂 **Table Structure**
+
+For simplicity, we'll use a single table:
+- `ProductSales`
+  - `ProductID`
+  - `ProductName`
+  - `Price`
+  - `OrderDate`
+  - `Sales`
+
+Alternatively, you could split this into two tables: `Products` and `Sales`, linked by primary and foreign keys. 🔗
+
+### 🔍 **Query Breakdown**
+
+1. **Extract Year and Month**:
+   ```sql
+   SELECT 
+       YEAR(OrderDate) AS Year, 
+       MONTH(OrderDate) AS Month, 
+       SUM(Sales) AS TotalSales
+   FROM 
+       ProductSales
+   GROUP BY 
+       YEAR(OrderDate), 
+       MONTH(OrderDate)
+   ORDER BY 
+       TotalSales DESC;
+   ```
+
+   - `YEAR(OrderDate)`: Extracts the year from the `OrderDate`.
+   - `MONTH(OrderDate)`: Extracts the month from the `OrderDate`.
+   - `SUM(Sales)`: Calculates the total sales for each month.
+   - `GROUP BY`: Groups results by year and month.
+   - `ORDER BY TotalSales DESC`: Sorts the results in descending order based on total sales.
+
+2. **Execute the Query**:
+   - Run the query in SQL Server Management Studio to get the desired output. 📊
+
+### 📈 **Output Example**
+
+The result will show monthly sales in descending order, like so:
+- **March**: $5000
+- **February**: $4000
+- **January**: $3000
+
+### ⚙️ **Additional Tips**
+
+- **Skip the Year Column**: If the year is the same (e.g., 2023), you can skip it to simplify the output.
+- **Adjust for Different Periods**: You can modify the query to find yearly sales or sales for different periods. 📅
+
+
+
+
+
+
+
+
+
+
+# 📊 SQL Writing Interview Questions
+
+
+
+### 📝 What You'll Learn:
+1. **Finding Department-wise Highest Salary** 💰
+2. **Finding Department-wise Lowest Salary** 📉
+3. **Counting Employees Department-wise** 📋
+
+### 🔍 Detailed Breakdown:
+
+1. **Find Department-wise Highest Salary**:
+   - Use `GROUP BY` with `MAX` function to get the highest salary for each department.
+   - Example Query:
+     ```sql
+     SELECT Department_ID, MAX(Salary) AS Max_Salary
+     FROM Employees
+     GROUP BY Department_ID;
+     ```
+
+2. **Find Department-wise Lowest Salary**:
+   - Similar to the highest salary, but use `MIN` function.
+   - Example Query:
+     ```sql
+     SELECT Department_ID, MIN(Salary) AS Min_Salary
+     FROM Employees
+     GROUP BY Department_ID;
+     ```
+
+3. **Count Employees Department-wise**:
+   - Use `COUNT` function to get the number of employees in each department.
+   - Example Query:
+     ```sql
+     SELECT Department_ID, COUNT(*) AS Employee_Count
+     FROM Employees
+     GROUP BY Department_ID;
+     ```
+
+### 📌 Key Points:
+- **Use `GROUP BY`** to group data by departments.
+- **Aggregate Functions** like `MAX`, `MIN`, and `COUNT` are crucial.
+- **Order Results** if needed using `ORDER BY`.
+
+
+
+
+
+# 📚 SQL Interview Questions & Answers: Display Alternate Records
+
+
+### 🧩 Key Points Covered:
+1. **Understanding Alternate Records**:
+   - What are alternate records? 
+   - Examples: Even-numbered and odd-numbered records.
+
+2. **Using SQL Functions**:
+   - **MOD Function**: For databases like PostgreSQL, MySQL, and Oracle, use the `MOD` function to find remainders.
+   - **ROW_NUMBER Function**: In Oracle, you can also use the `ROW_NUMBER` function to achieve the same result.
+
+3. **Database Specific Implementations**:
+   - **PostgreSQL/MySQL/Oracle**: Use `MOD` function to check for remainders when dividing by 2.
+   - **SQL Server**: Utilize the `MOD` operator for alternate records.
+
+4. **SQL Query Example**:
+   - To get **even-numbered records**: 
+     ```sql
+     SELECT * 
+     FROM Employees
+     WHERE MOD(EmployeeID, 2) = 0;
+     ```
+   - To get **odd-numbered records**:
+     ```sql
+     SELECT * 
+     FROM Employees
+     WHERE MOD(EmployeeID, 2) = 1;
+     ```
+
+5. **Hands-On Example**:
+   - Show a table with records and demonstrate how to fetch even and odd-numbered records using the `MOD` function.
+
+
+
+
+
+
+
+
+
+
+
+# 📚 SQL Writing Interview Questions - Essential Guide
+
+
+## 1. Copy All Rows from One Table to Another 📋
+
+**Question:** How do you copy all rows from one table into another using SQL query?
+
+**Query:**
+```sql
+SELECT * INTO NewTable FROM OriginalTable;
+```
+This command creates a new table `NewTable` and copies all rows from `OriginalTable` into it.
+
+---
+
+## 2. Copy Column Structure of a Table to Another Table 🏗️
+
+**Question:** How can you copy the column structure of a table into another table using SQL query?
+
+**Query:**
+```sql
+SELECT * INTO NewTable FROM OriginalTable WHERE 1 = 0;
+```
+This query copies the structure of `OriginalTable` into `NewTable` without copying any data.
+
+---
+
+## 3. Retrieve First and Last Records from a Table 🗂️
+
+**Question:** Write a SQL query to display the first and last record from the table.
+
+**Query for First Record:**
+```sql
+SELECT TOP 1 * FROM TableName ORDER BY ColumnName ASC;
+```
+
+**Query for Last Record:**
+```sql
+SELECT TOP 1 * FROM TableName ORDER BY ColumnName DESC;
+```
+Replace `TableName` with your table's name and `ColumnName` with the column used to order the records.
+
+---
+
+## 4. Retrieve the Last N Records from a Table 🔢
+
+**Question:** How do you retrieve the last three records from a table?
+
+**Query:**
+```sql
+SELECT * FROM TableName ORDER BY ColumnName DESC LIMIT 3;
+```
+Replace `TableName` and `ColumnName` as needed. Adjust the `LIMIT` value to fetch the desired number of records.
+
+
+
+
+
+
+
+
+
+
+## 📝 Scenarios and Queries
+
+### 1. 🔍 Find Employees with the Same Name and Email
+- **Query:**
+  ```sql
+  SELECT Name, Email
+  FROM Employees
+  GROUP BY Name, Email
+  HAVING COUNT(*) > 1;
+  ```
+- **Explanation:** This query groups the employees by `Name` and `Email`, and then uses the `HAVING` clause to filter out only those groups that have more than one employee, indicating that they have the same name and email.
+
+### 2. 🎯 Find Top 10 Employees with Odd Numbered Employee IDs
+- **Query:**
+  ```sql
+  SELECT TOP 10 *
+  FROM Employees
+  WHERE EmployeeID % 2 <> 0
+  ORDER BY EmployeeID ASC;
+  ```
+- **Explanation:** This query filters employees with odd-numbered `EmployeeID` using the modulo operator (`%`). The `TOP 10` clause is used to limit the result to the first 10 records, and `ORDER BY EmployeeID ASC` ensures that the results are sorted in ascending order.
+
+### 3. 🗓️ Extract the Quarter from a Date
+- **Query:**
+  ```sql
+  SELECT DATEPART(QUARTER, YourDateColumn) AS Quarter
+  FROM YourTable;
+  ```
+- **Explanation:** This query uses the `DATEPART` function to extract the quarter from a date column. Replace `YourDateColumn` with the name of your date column and `YourTable` with your table name. The result will give the quarter number (1 to 4) for each date.
+
+
+
+
+
+
+
+
+
+
+# 📘 SQL Custom Sorting Tutorial
+
+
+
+
+
+## 📊 Problem Statement
+Given a table with a `Date` column, we want to sort the data by months in the natural calendar order (January to December) rather than alphabetical or numerical order.
+
+## 🛠️ Steps to Achieve Custom Sorting
+### 1. **Create the Table**
+   - A table `SalesDetails` with columns `Date` and `Sales`.
+
+```sql
+CREATE TABLE SalesDetails (
+    Date DATE,
+    Sales INT
+);
+```
+
+### 2. **Extract the Month Name**
+   - Use the `DATENAME()` function to extract the month name from the `Date` column.
+
+```sql
+SELECT 
+    DATENAME(MONTH, Date) AS MonthName,
+    MONTH(Date) AS MonthNumber,
+    Sales
+FROM SalesDetails;
+```
+
+### 3. **Apply Custom Sorting**
+   - Sort the results by the month number to ensure the data is displayed in the correct order (January to December).
+
+```sql
+SELECT 
+    DATENAME(MONTH, Date) AS MonthName,
+    Sales
+FROM SalesDetails
+ORDER BY 
+    MONTH(Date) ASC;
+```
+
+## 💻 Final Query
+```sql
+SELECT 
+    DATENAME(MONTH, Date) AS MonthName,
+    Sales
+FROM SalesDetails
+ORDER BY 
+    MONTH(Date) ASC;
+```
+
+## 🎯 Outcome
+- The result will display the sales data sorted by month in the natural calendar order, from January to December.
+
+
+
+
+### 🚀 Ultimate Guide to SQL Server Constraints using ALTER Command
+
+
+
+#### 📌 Key Points Covered:
+
+1. **SQL Constraints Overview**:
+   - **NOT NULL**: Ensures a column cannot have a NULL value.
+   - **DEFAULT**: Provides a default value for a column.
+   - **CHECK**: Ensures all values in a column meet a specific condition.
+   - **PRIMARY KEY**: Uniquely identifies each record in a table.
+   - **FOREIGN KEY**: Ensures referential integrity between tables.
+
+2. **Adding Constraints**:
+   - **NOT NULL**: Example command to add a NOT NULL constraint to the `voter_name` column.
+     ```sql
+     ALTER TABLE voter
+     ALTER COLUMN voter_name VARCHAR(50) NOT NULL;
+     ```
+   - **UNIQUE**: Ensures all values in a column are unique. Example command to add a UNIQUE constraint to the `voter_id` column.
+     ```sql
+     ALTER TABLE voter
+     ADD CONSTRAINT unique_voter_id UNIQUE (voter_id);
+     ```
+
+3. **Dropping Constraints**:
+   - **Removing NOT NULL**: To allow NULL values in a column previously set to NOT NULL.
+     ```sql
+     ALTER TABLE voter
+     ALTER COLUMN voter_name VARCHAR(50) NULL;
+     ```
+   - **Dropping UNIQUE**: Example command to remove a UNIQUE constraint.
+     ```sql
+     ALTER TABLE voter
+     DROP CONSTRAINT unique_voter_id;
+     ```
+
+4. **Handling Errors**:
+   - **Inserting NULL into NOT NULL Column**: You’ll get an error if you try to insert NULL into a column with a NOT NULL constraint.
+   - **Inserting Duplicate Values into Unique Column**: You’ll get a violation error if you try to insert a duplicate value into a column with a UNIQUE constraint.
+
+5. **Important Notes**:
+   - You can only add a NOT NULL constraint if there are no existing NULL values in the column.
+   - UNIQUE constraints prevent duplicate values but can be dropped if needed.
+
+
